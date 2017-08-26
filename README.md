@@ -17,7 +17,9 @@
 
 Clone down this project.  Run `npm i`.
 Start your MongoDB server by running `mongod` from the command line.
-Start the server (on the solution branch) of the LS-Auth repository.
+Start up your (completed) server from the server Auth sprint. If your 
+implementation isn't complete, feel free to clone down from the solution
+repository.
 
 Complete the SignUp component.  When the user fills out the form you should send and
 axios POST request to the server to save the user to the database.  If successful then you
