@@ -1,38 +1,26 @@
 # LS-Client-Auth
 
-## Packages
-
-* `redux-thunk`
-* `cors`
-
-## Topics
-
-*	Redux Thunk
-* localStorage
-* axios's config object
-* http headers
-
-
 ## Assignment
-
-Clone down this project.  Run `npm i`.
 Start your MongoDB server by running `mongod` from the command line.
-Start up your (completed) server from the server Auth sprint. If your 
-implementation isn't complete, feel free to clone down from the solution
-repository.
+Start up your Auth server that we extended in the mini lab.
 
-Complete the SignUp component.  When the user fills out the form you should send and
-axios POST request to the server to save the user to the database.  If successful then you
-should save the provided JWT to localStorage and then redirect the user to `/users`.
-User the existing code as a reference.
+Complete the SignUp component. When the user fills out the form you should send an
+axios POST request to the server to save the user to the database. From there, the user will
+be redirected to the `/signin` page to login. Upon successful login, the server will be persisting
+their session, and the user should be able to get a list of all the users currently stored in
+the database (you'll want to test this by registering a bunch of users). 
 
-You will also need to make sure that your server is using the `cors` middleware.
-Instructions for adding cors:
-* `npm i --save cors`
-* `const cors = require('cors');`
-* `app.use(cors());`
+You'll also need to complete the `RequireAuth` higher-order component in `/components/HOC`. This 
+higher-order component wraps the `users` component to ensure that only authorized users can view
+that component. 
+
+There's lots of starter code in this repo that you can use as a reference. 
+
+## Extra Credit
+Clone down [this](https://github.com/SunJieMing/LS-Auth/tree/solution) repository, which is an auth 
+server implementation that handles sessions with JWTs instead of sessions. Refactor your client to 
+interface with this server and persist JWTs in localStorage. 
 
 ## Insanity Mode
-
-Build the entire client from scratch and duplicate this functionality.  I highly
-encourage you all to attempt this if you finish the project early.
+Build the entire client from scratch and duplicate this functionality. It is highly
+encouraged that you attempt this if you finish the project early.
