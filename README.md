@@ -18,12 +18,13 @@ There's lots of starter code in this repo that you can use as a reference.
 
 ## Extra Credit
 Clone down [this](https://github.com/LambdaSchool/LS-Auth-JWT/tree/solution) repository, which is an auth 
-server implementation that handles sessions with JWTs instead of sessions. Refactor your client to 
-interface with this server and persist JWTs in localStorage. 
+server implementation that handles sessions with JWTs instead of sessions. Have a look around the code and
+try to understand as much of what it is doing as you can. Refactor your client to interface with this server 
+and persist JWTs in localStorage. 
 
 Some of the things that you'll need to change include:
  * Your actions that make calls to your server will all need to be refactored to handle the JWT token accordingly.
- * The way you check if a user is a authenticated throughout your application will need to change (i.e. in the RequireAuth higher-order component).
+ * The way you check if a user is authenticated throughout your application will need to change (i.e. in the `RequireAuth` higher-order component).
  * There is no `/restricted/users` route on this server, so don't forget to update this on your client accordingly.
  * Logging out is now an entirely client-side operation. Simply invalidate the JWT client-side. Note that the server doesn't even have a `/logout` route.
 
