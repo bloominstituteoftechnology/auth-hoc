@@ -1,26 +1,27 @@
 # LS-Client-Auth
 
 ## Assignment
-Start your MongoDB server by running `mongod` from the command line.
-Start up your Auth server that we extended in the mini lab.
+- Start your MongoDB server by running `mongod` from the command line. - DONE √
+  - copied Client Auth Mini into "patrick" subfolder
+  - `mongo --dbpath data` from /patrick/Client-Auth-Mini/
+-Start up your Auth server that we extended in the mini lab. - DONE √
+  - `nodemone src/app.js`
 
-Complete the SignUp component. When the user fills out the form you should send an
-axios POST request to the server to save the user to the database. From there, the user will
-be redirected to the `/signin` page to login. Upon successful login, the server will be persisting
-their session, and the user should be able to get a list of all the users currently stored in
-the database (you'll want to test this by registering a bunch of users). 
+Complete the SignUp component.
+When the user fills out the form you should send an axios POST request to the server to save the user to the database.
+From there, the user will be redirected to the `/signin` page to login.
+Upon successful login, the server will be persisting their session, and the user should be able to get a list of all the users currently stored in the database (you'll want to test this by registering a bunch of users).
 
-You'll also need to complete the `RequireAuth` higher-order component in `/components/HOC`. This 
-higher-order component wraps the `users` component to ensure that only authorized users can view
-that component. 
+You'll also need to complete the `RequireAuth` higher-order component in `/components/HOC`.
+This higher-order component wraps the `users` component to ensure that only authorized users can view that component.
 
-There's lots of starter code in this repo that you can use as a reference. 
+There's lots of starter code in this repo that you can use as a reference.
 
 ## Extra Credit
-Clone down [this](https://github.com/LambdaSchool/LS-Auth-JWT/tree/solution) repository, which is an auth 
+Clone down [this](https://github.com/LambdaSchool/LS-Auth-JWT/tree/solution) repository, which is an auth
 server implementation that handles sessions with JWTs instead of sessions. Have a look around the code and
-try to understand as much of what it is doing as you can. Refactor your client to interface with this server 
-and persist JWTs in localStorage. 
+try to understand as much of what it is doing as you can. Refactor your client to interface with this server
+and persist JWTs in localStorage.
 
 Some of the things that you'll need to change include:
  * Your actions that make calls to your server will all need to be refactored to handle the JWT token accordingly.
