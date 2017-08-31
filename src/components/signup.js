@@ -1,7 +1,8 @@
 // Complete the component in this file.
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { reduxForm } from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
+import { register } from '../actions';
 
 class SignUp extends Component {
   // This component needs a `handleFormSubmit` function that takes in 
@@ -37,5 +38,5 @@ SignUp = connect(null)(SignUp);
 
 export default reduxForm({
   form: 'signup',
-  fields: ['email', 'password', 'confirmPassword'],
+  fields: ['username', 'password', 'confirmPassword'],
 })(SignUp);
