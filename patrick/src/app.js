@@ -1,17 +1,14 @@
-// Do NOT modify this file; make your changes in server.js.
-const { server } = require('./server.js');
+import React, { Component } from 'react';
+import Header from './components/header';
 
-/* eslint no-console: 0 */
-const port = 3000;
-server.listen(port, () => {
-  console.log(`Ye ol' server is listening on port: ${port}`);
-});
-// server.listen(port, (err) => {
-//   console.log(`Server is listening on port: ${port}`);
-//   if (err) {
-//     console.log('\n************************');
-//     console.log("ERROR: Couldn't connect to MongoDB.");
-//     console.log('ERROR: Do you have it running?????');
-//     console.log('************************\n');
-//   }
-// });
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Header />
+      </div>
+    );
+  }
+}
+
+export default App;
