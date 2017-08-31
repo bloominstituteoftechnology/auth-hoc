@@ -15,6 +15,8 @@ import {
 import reducers from './reducers';
 import './index.css';
 
+import ReduxThunk from 'redux-thunk';  // <~~~~ I added this
+
 const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
 
 ReactDOM.render(
