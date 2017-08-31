@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ReduxThunk from 'redux-thunk';
 
 export default (ComposedComponent) => {
     class RequireAuthentication extends Component {
