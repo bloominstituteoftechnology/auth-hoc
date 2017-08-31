@@ -6,14 +6,17 @@
   - `mongo --dbpath data` from /patrick/Client-Auth-Mini/
 -Start up your Auth server that we extended in the mini lab. - DONE √
   - `nodemone src/app.js`
+- NOTE: added `import ReduxThunk from 'redux-thunk';` to /index.js
+- NOTE: package.json `"react-scripts": "^1.0.7"`
 
-Complete the SignUp component.
-When the user fills out the form you should send an axios POST request to the server to save the user to the database.
-From there, the user will be redirected to the `/signin` page to login.
-Upon successful login, the server will be persisting their session, and the user should be able to get a list of all the users currently stored in the database (you'll want to test this by registering a bunch of users).
+TODO:
+1. Complete the SignUp component.
+2. When the user fills out the form you should send an axios POST request to the server to save the user to the database.
+3. From there, the user will be redirected to the `/signin` page to login.
+4. Upon successful login, the server will be persisting their session, and the user should be able to get a list of all the users currently stored in the database (you'll want to test this by registering a bunch of users).
 
-You'll also need to complete the `RequireAuth` higher-order component in `/components/HOC`.
-This higher-order component wraps the `users` component to ensure that only authorized users can view that component.
+1. You'll also need to complete the `RequireAuth` higher-order component in `/components/HOC`.
+2. This higher-order component wraps the `users` component to ensure that only authorized users can view that component.
 
 There's lots of starter code in this repo that you can use as a reference.
 
