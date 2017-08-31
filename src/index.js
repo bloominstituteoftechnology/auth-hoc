@@ -8,6 +8,7 @@ import SignUp from './components/signup';
 import RequireAuth from './components/HOC/RequireAuth';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import ReduxThunk from 'redux-thunk';
 import {
   BrowserRouter as Router,
   Route,
