@@ -66,7 +66,7 @@ export const logout = () => {
 export const getUsers = () => {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/restricted/users`)
-      .then(()=> {
+      .then((response)=> {
         dispatch({
           type: GET_USERS,
           payload: response.data
