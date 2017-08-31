@@ -12,6 +12,7 @@ import {
   BrowserRouter as Router,
   Route,
 } from 'react-router-dom';
+import ReduxThunk from 'redux-thunk';
 import reducers from './reducers';
 import './index.css';
 
