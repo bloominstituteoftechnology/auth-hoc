@@ -1,5 +1,5 @@
 import axios from 'axios';
-const ROOT_URL = 'http://localhost:3000';
+const ROOT_URL = 'http://localhost:3001';
 
 export const USER_REGISTERED = 'USER_REGISTERED';
 export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
@@ -34,7 +34,7 @@ export const register = (username, password, confirmPassword, history) => {
   };
 };
 
-export const login = (username, password, history) => {
+export const signIn = (username, password, history) => {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/login`, { username, password })
       .then(() => {
@@ -49,7 +49,7 @@ export const login = (username, password, history) => {
   };
 };
 
-export const logout = () => {
+export const signOutUser = () => {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/logout`)
       .then(() => {
@@ -66,7 +66,7 @@ export const logout = () => {
 export const getUsers = () => {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/restricted/users`)
-      .then(()=> {
+      .then((response)=> {
         dispatch({
           type: GET_USERS,
           payload: response.data
