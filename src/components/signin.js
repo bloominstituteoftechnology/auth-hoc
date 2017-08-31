@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 class SignIn extends Component {
   handleFormSubmit({email, password}) {
-    this.props.signIn(email, password, this.props.history);
+    this.props.login(email, password, this.props.history);
   }
 
   renderAlert() {
