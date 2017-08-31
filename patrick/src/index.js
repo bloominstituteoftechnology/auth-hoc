@@ -8,14 +8,13 @@ import SignUp from './components/signup';
 import RequireAuth from './components/HOC/RequireAuth';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import ReduxThunk from 'redux-thunk';
 import {
   BrowserRouter as Router,
   Route,
 } from 'react-router-dom';
 import reducers from './reducers';
 import './index.css';
-
-import ReduxThunk from 'redux-thunk';  // <~~~~ I added this
 
 const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
 

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
-import { signIn } from '../actions';
+import { login } from '../actions';
 import { connect } from 'react-redux';
 
 class SignIn extends Component {
   handleFormSubmit({email, password}) {
-    this.props.signIn(email, password, this.props.history);
+    this.props.login(email, password, this.props.history);
   }
 
   renderAlert() {
@@ -42,7 +42,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-SignIn = connect(mapStateToProps, { signIn })(SignIn);
+SignIn = connect(mapStateToProps, { login })(SignIn);
 
 export default reduxForm({
   form: 'signin',
