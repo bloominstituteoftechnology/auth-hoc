@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
-import { signIn } from '../actions';
+import { login } from '../actions';
 import { connect } from 'react-redux';
 
 class SignIn extends Component {
