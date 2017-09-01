@@ -13,7 +13,15 @@ const BCRYPT_COST = 11;
 
 const server = express();
 
-// server.use(cors());               // <~~~ added GLOBAL CORS
+const corsOptions = {
+  origin: 'http://localhost:3001',
+  methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
+  preflightContinue: true,
+  optionsSuccessStatus: 204,
+  credentials: true // enable set cookie
+};
+
+server.use(cors(corsOptions));               // <~~~ added GLOBAL CORS
 
 server.use(bodyParser.json()); // <~~~ Higher Order Function
 
@@ -57,7 +65,7 @@ const confirmNameAndPassword = ((req, res, next) => {
 });
 // REGISTER A USER: POST THEIR USERNAME AND PASSWORD
 // ALSO WITH CORS MIDDLEWARE
-server.post('/users', cors(), confirmNameAndPassword, (req, res) => {
+server.post('/users', confirmNameAndPassword, (req, res) => {
   const { username, password } = req.body;
   bcrypt.hash(password, BCRYPT_COST, (err, passwordHash) => {
     //  VVV ------------------------------------- WHAT COULD CAUSE AN ERROR HERE? (Just programming mistakes? Bad user input?)
@@ -74,7 +82,7 @@ server.post('/users', cors(), confirmNameAndPassword, (req, res) => {
 });
 // LOGIN IN "REGISTERED" USER
 // ALSO WITH CORS MIDDLEWARE
-server.post('/login', cors(), confirmNameAndPassword, (req, res) => {
+server.post('/login', confirmNameAndPassword, (req, res) => {
   const { username, password } = req.body;
   User.findOne({ username })
   .exec()
@@ -139,7 +147,7 @@ server.use((req, res, next) => {
 // GLOBAL MIDDLEWARE for EXTRA CREDIT http://localhost:3000/top-secret/...
 // USING WILDCARD *
 // ALSO WITH CORS MIDDLEWARE
-server.use('/top-secret/*', cors(), (req, res, next) => { // <~~~~ props to Antonio & Jake!!
+server.use('/top-secret/*', (req, res, next) => { // <~~~~ props to Antonio & Jake!!
   if (!req.session.user) {
     sendUserError('You need to tell us who you are for TOP-SECRET STUFF!!!', res);
     return;
