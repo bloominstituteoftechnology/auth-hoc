@@ -89,6 +89,7 @@ server.post('/users', confirmNameAndPassword, (req, res) => {
 // LOGIN IN "REGISTERED" USER
 // ALSO WITH CORS MIDDLEWARE
 server.post('/login', confirmNameAndPassword, (req, res) => {
+  // console.log("Login consolelog");
   const { username, password } = req.body;
   User.findOne({ username })
   .exec()
@@ -166,18 +167,19 @@ server.get('/top-secret/*', (req, res) => {
   res.json(`Hi ${req.session.user.username}. Val Kilmer was great in, 'TOP-SECRET' (1984).`);
 });
 
-// server.get('/restricted/users', (req, res) => {
-//   User.find({}, (err, jake) => {
-//     if (!err) {
-//       res.json(jake);
-//     }
-//     sendUserError(err, res);
-//     // return;
-//   });
-// });
-server.get('/restricted/*', (req, res) => {
-  res.json({ hidden: 'hidden' }); // <--- Wizard Jim!!!!!
+server.get('/restricted/users', (req, res) => {
+  User.find({}, (err, jake) => {
+    if (!err) {
+      res.json(jake);
+    }
+    sendUserError(err, res);
+    // return;
+  });
 });
+// server.get('/restricted/*', (req, res) => {
+//   // res.json({ hidden: 'hidden' }); // <--- Wizard Jim!!!!!
+//   res.json("WIZARD JIM!!!");
+// });
 
 
 // LOG-OUT - Q: SHOULD THIS BE AN HTTP DELETE OR POST METHOD?
