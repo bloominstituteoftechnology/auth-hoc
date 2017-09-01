@@ -13,7 +13,20 @@ const BCRYPT_COST = 11;
 
 const server = express();
 
-server.use(cors());               // <~~~ added GLOBAL CORS
+const corsOptions = {
+  origin: 'http://localhost:3001',
+  methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
+  preflightContinue: true,
+  optionsSuccessStatus: 204,
+  credentials: true // enable set cookie
+};
+
+// const corsOptions = {
+//   "origin": "http://localhost:3000",
+//   "credentials": true // enable set cookie
+// };
+
+server.use(cors(corsOptions));    // <~~~ added GLOBAL CORS
 
 server.use(bodyParser.json()); // <~~~ Higher Order Function
 
@@ -125,20 +138,20 @@ server.get('/me', isRegisteredUserLoggedIn, (req, res) => {
 
 // GLOBAL MIDDLEWARE for EXTRA CREDIT http://localhost:3000/restricted/...
 // USING JS REGEX
-server.use((req, res, next) => {
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
-  if (req.path.match(/restricted\/[\S]/)) { // <~~~~~~~~~~ props to Ely!!!!!!!!
-    console.log(req.session);
-    if (!req.session.user) {
-      sendUserError('Who do you think you are????!!!???', res);
-      return;
-    }
-    res.json(`Well, hello there ${req.session.user.username}. Welcome to the InterZone.`);
-  }
-  next();
-});
+// server.use((req, res, next) => {
+//   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match
+//   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+//   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
+//   if (req.path.match(/restricted\/[\S]/)) { // <~~~~~~~~~~ props to Ely!!!!!!!!
+//     // console.log(req.session);
+//     if (!req.session.user) {
+//       sendUserError('Who do you think you are????!!!???', res);
+//       return;
+//     }
+//     res.json(`Well, hello there ${req.session.user.username}. Welcome to the InterZone.`);
+//   }
+//   next();
+// });
 // GLOBAL MIDDLEWARE for EXTRA CREDIT http://localhost:3000/top-secret/...
 // USING WILDCARD *
 // ALSO WITH CORS MIDDLEWARE
