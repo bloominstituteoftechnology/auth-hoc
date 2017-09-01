@@ -2,10 +2,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
+import { register } from '../actions';
 
 class SignUp extends Component {
   handleFormSubmit({username, password, confirmPassword}) {
-    this.props.login(username, password, confirmPassword, this.props.history);
+    this.props.register(username, password, confirmPassword, this.props.history);
   }
   // This component needs a `handleFormSubmit` function that takes in 
   // username, password, confirmPassword strings as input and 
@@ -45,7 +46,7 @@ class SignUp extends Component {
     );
   }
 }
-
+          
 const mapStateToProps = (state) => {
   return {
     error: state.auth.error,
@@ -54,7 +55,7 @@ const mapStateToProps = (state) => {
 };
 
 // Make sure to correctly fill in this `connect` call
-SignUp = connect(null)(SignUp);
+SignUp = connect(mapStateToProps, {register})(SignUp);
 
 export default reduxForm({
   form: 'signup',
