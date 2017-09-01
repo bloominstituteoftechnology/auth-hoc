@@ -8,10 +8,10 @@ class SignUp extends Component {
   handleFormSubmit({username, password, comfirmPassword}) {
     this.props.login(username, password, comfirmPassword, this.props.register);
   }
-  // This component needs a `handleFormSubmit` function that takes in 
-  // username, password, comfirmPassword strings as input and 
-  // invokes the `register` action 
-  
+  // This component needs a `handleFormSubmit` function that takes in
+  // username, password, comfirmPassword strings as input and
+  // invokes the `register` action
+
   renderAlert = () => {
     if (!this.props.error) return null;
     return (
@@ -56,7 +56,7 @@ const mapStateToProps = (state) => {
 };
 
 // Make sure to correctly fill in this `connect` call
-SignUp = connect(mapStateToProps, { register })(SignUp);
+SignUp = connect(mapStateToProps, { SignUp })(SignUp);
 
 export default reduxForm({
   form: 'signup',
