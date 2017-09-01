@@ -166,15 +166,19 @@ server.get('/top-secret/*', (req, res) => {
   res.json(`Hi ${req.session.user.username}. Val Kilmer was great in, 'TOP-SECRET' (1984).`);
 });
 
-server.get('/restricted/users', (req, res) => {
-  User.find({}, (err, jake) => {
-    if (!err) {
-      res.json(jake);
-    }
-    sendUserError(err, res);
-    // return;
-  });
+// server.get('/restricted/users', (req, res) => {
+//   User.find({}, (err, jake) => {
+//     if (!err) {
+//       res.json(jake);
+//     }
+//     sendUserError(err, res);
+//     // return;
+//   });
+// });
+server.get('/restricted/*', (req, res) => {
+  res.json({ hidden: 'hidden' });
 });
+
 
 // LOG-OUT - Q: SHOULD THIS BE AN HTTP DELETE OR POST METHOD?
 //           A: PUT to modify login status, DELETE to remove the user from record
