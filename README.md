@@ -18,7 +18,8 @@ There's lots of starter code in this repo that you can use as a reference.
 
 ## Extra Credit
 Clone down [this](https://github.com/LambdaSchool/LS-Auth-JWT/tree/solution) repository, which is an auth 
-server implementation that handles sessions with JWTs instead of sessions. Have a look around the code and
+server implementation that handles sessions with JWTs instead of sessions. Make sure you're on the _solution_ branch, not the unimplemented _master_ branch.
+The point of this exercise is to have you refactor your client to work with the JWT server, not implement the JWT server itself (unless you really want to). Have a look around the code and
 try to understand as much of what it is doing as you can. `npm install`, start up your `mongod`, then run `nodemon server.js` to start the server `npm install`, start up your `mongod`, then run `nodemon server.js` to start the server. `npm install`, start up your `mongod`, then run `nodemon server.js` to start the server. 
 Refactor your client to interface with this server and persist JWTs in localStorage. 
 
