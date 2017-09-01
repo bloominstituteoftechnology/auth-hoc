@@ -15,9 +15,6 @@ const server = express();
 
 const corsOptions = {
   origin: 'http://localhost:3001',
-  methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
-  preflightContinue: true,
-  optionsSuccessStatus: 204,
   credentials: true // enable set cookie
 };
 
@@ -26,7 +23,9 @@ const corsOptions = {
 //   "credentials": true // enable set cookie
 // };
 
-server.use(cors(corsOptions));    // <~~~ added GLOBAL CORS
+server.use(cors(corsOptions));
+
+// server.use(cors());               // <~~~ added GLOBAL CORS
 
 server.use(bodyParser.json()); // <~~~ Higher Order Function
 
@@ -72,7 +71,6 @@ const confirmNameAndPassword = ((req, res, next) => {
 // ALSO WITH CORS MIDDLEWARE
 server.post('/users', confirmNameAndPassword, (req, res) => {
   const { username, password } = req.body;
-  console.log(username, password);
   bcrypt.hash(password, BCRYPT_COST, (err, passwordHash) => {
     //  VVV ------------------------------------- WHAT COULD CAUSE AN ERROR HERE? (Just programming mistakes? Bad user input?)
     if (err) sendServerError({ 'That password broke us :_(': err.message, 'ERROR STACK': err.stack }, res);
@@ -89,7 +87,6 @@ server.post('/users', confirmNameAndPassword, (req, res) => {
 // LOGIN IN "REGISTERED" USER
 // ALSO WITH CORS MIDDLEWARE
 server.post('/login', confirmNameAndPassword, (req, res) => {
-  // console.log("Login consolelog");
   const { username, password } = req.body;
   User.findOne({ username })
   .exec()
@@ -111,7 +108,6 @@ server.post('/login', confirmNameAndPassword, (req, res) => {
           sendUserError('That password just aint right!', res);
         } else {
           req.session.user = loggingInUser;
-          console.log(req.session);
           res.json({ success: true });
         }
       });
@@ -144,7 +140,6 @@ server.get('/me', isRegisteredUserLoggedIn, (req, res) => {
 //   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 //   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
 //   if (req.path.match(/restricted\/[\S]/)) { // <~~~~~~~~~~ props to Ely!!!!!!!!
-//     // console.log(req.session);
 //     if (!req.session.user) {
 //       sendUserError('Who do you think you are????!!!???', res);
 //       return;
@@ -153,6 +148,16 @@ server.get('/me', isRegisteredUserLoggedIn, (req, res) => {
 //   }
 //   next();
 // });
+
+server.get('/restricted/users', (req, res) => {
+  User.find({}, (err, users) => {
+    if (err) {
+      res.json(err);
+    }
+    res.json(users);
+  });
+});
+
 // GLOBAL MIDDLEWARE for EXTRA CREDIT http://localhost:3000/top-secret/...
 // USING WILDCARD *
 // ALSO WITH CORS MIDDLEWARE
@@ -167,20 +172,6 @@ server.get('/top-secret/*', (req, res) => {
   res.json(`Hi ${req.session.user.username}. Val Kilmer was great in, 'TOP-SECRET' (1984).`);
 });
 
-server.get('/restricted/users', (req, res) => {
-  User.find({}, (err, jake) => {
-    if (!err) {
-      res.json(jake);
-    }
-    sendUserError(err, res);
-    // return;
-  });
-});
-// server.get('/restricted/*', (req, res) => {
-//   // res.json({ hidden: 'hidden' }); // <--- Wizard Jim!!!!!
-//   res.json("WIZARD JIM!!!");
-// });
-
 
 // LOG-OUT - Q: SHOULD THIS BE AN HTTP DELETE OR POST METHOD?
 //           A: PUT to modify login status, DELETE to remove the user from record
@@ -188,15 +179,16 @@ server.get('/restricted/users', (req, res) => {
 server.post('/logout', (req, res) => {
   if (req.session.user === undefined) {
     res.json('You gotta log in before you can log out');
-    return;
+    // return;
   }
-  req.session.destroy((err) => { // <~~~~~~~~~~~~ WHAT COULD CAUSE AN ERROR HERE? (Just programming mistakes? Server timeout? etc.?)
-    if (!err) {
-      res.json('GedOUTTAhea!');
-      return;
-    }
-    sendServerError(err, res);
-  });
+  req.session.user = null;
+  // req.session.destroy((err) => { // <~~~~~~~~~~~~ WHAT COULD CAUSE AN ERROR HERE? (Just programming mistakes? Server timeout? etc.?)
+  //   if (!err) {
+  //     res.json('GedOUTTAhea!');
+  //     return;
+  //   }
+  //   sendServerError(err, res);
+  // });
 });
 
 // DEMONSTRATING INDEPENDENT CLIENT SESSIONS
