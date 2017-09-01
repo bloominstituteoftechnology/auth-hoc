@@ -1,4 +1,7 @@
 import axios from 'axios';
+// Fixes an issue with axios and express-session where sessions
+// would not persist between routes
+axios.defaults.withCredentials = true;
 const ROOT_URL = 'http://localhost:3000';
 
 export const USER_REGISTERED = 'USER_REGISTERED';
@@ -75,11 +78,5 @@ export const getUsers = () => {
       .catch(() => {
         dispatch(authError('Failed to fetch users'));
       });
-  };
-};
-
-export const checkIfAuthenticated = () => {
-  return {
-    type: CHECK_IF_AUTHENTICATED
   };
 };
