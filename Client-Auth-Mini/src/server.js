@@ -181,9 +181,9 @@ server.post('/logout', (req, res) => {
     res.json('You gotta log in before you can log out');
     // return;
   }
-  // req.session.user = null;
-  req.session.destroy();
-  res.json({ success: true});
+  // req.session.user = null; // SEAN
+  req.session.destroy();      // JAKEnJulian
+  res.json({ success: true}); // JAKEnJulian
   // req.session.destroy((err) => { // <~~~~~~~~~~~~ WHAT COULD CAUSE AN ERROR HERE? (Just programming mistakes? Server timeout? etc.?)
   //   if (!err) {
   //     res.json('GedOUTTAhea!');
