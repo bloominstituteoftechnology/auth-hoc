@@ -172,7 +172,7 @@ server.get('/restricted/users', (req, res) => {
       res.json(jake);
     }
     sendUserError(err, res);
-    return;
+    // return;
   });
 });
 
