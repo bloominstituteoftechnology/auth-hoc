@@ -21,7 +21,8 @@ export default (ComposedComponent) => {
                 return;
             }
             // Else, render the component that was passed to this higher-order component
-            return <Users />;
+            // return <Users />;
+            return <ComposedComponent />;
         }
     }
 
