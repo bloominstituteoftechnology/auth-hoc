@@ -55,7 +55,7 @@ const mapStateToProps = (state) => {
 };
 
 // Make sure to correctly fill in this `connect` call
-SignUp = connect(mapStateToProps, {register})(SignUp);
+SignUp = connect(mapStateToProps, { register })(SignUp);
 
 export default reduxForm({
   form: 'signup',
