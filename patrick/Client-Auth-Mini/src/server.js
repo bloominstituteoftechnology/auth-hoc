@@ -176,7 +176,7 @@ server.get('/top-secret/*', (req, res) => {
 //   });
 // });
 server.get('/restricted/*', (req, res) => {
-  res.json({ hidden: 'hidden' });
+  res.json({ hidden: 'hidden' }); // <--- Wizard Jim!!!!!
 });
 
 
