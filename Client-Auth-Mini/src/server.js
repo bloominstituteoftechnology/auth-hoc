@@ -131,19 +131,24 @@ server.get('/me', isRegisteredUserLoggedIn, (req, res) => {
 
 // GLOBAL MIDDLEWARE for EXTRA CREDIT http://localhost:3000/restricted/...
 // USING JS REGEX
-server.use((req, res, next) => {
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
-  if (req.path.match(/restricted\/[\S]/)) { // <~~~~~~~~~~ props to Ely!!!!!!!!
-    if (!req.session.user) {
-      sendUserError('Who do you think you are????!!!???', res);
-      return;
-    }
-    res.json(`Well, hello there ${req.session.user.username}. Welcome to the InterZone.`);
-  }
-  next();
+// server.use((req, res, next) => {
+//   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match
+//   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+//   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
+//   if (req.path.match(/restricted\/[\S]/)) { // <~~~~~~~~~~ props to Ely!!!!!!!!
+//     if (!req.session.user) {
+//       sendUserError('Who do you think you are????!!!???', res);
+//       return;
+//     }
+//     res.json(`Well, hello there ${req.session.user.username}. Welcome to the InterZone.`);
+//   }
+//   next();
+// });
+
+server.get('/restricted/*', (req, res) => {
+  res.json({ hidden: 'hidden' }); // <--- Wizard Jim!!!!!
 });
+
 // GLOBAL MIDDLEWARE for EXTRA CREDIT http://localhost:3000/top-secret/...
 // USING WILDCARD *
 // ALSO WITH CORS MIDDLEWARE
@@ -162,7 +167,7 @@ server.get('/top-secret/*', (req, res) => {
 // LOG-OUT - Q: SHOULD THIS BE AN HTTP DELETE OR POST METHOD?
 //           A: PUT to modify login status, DELETE to remove the user from record
 // https://www.npmjs.com/package/express-session
-server.delete('/logout', (req, res) => {
+server.post('/logout', (req, res) => {
   if (req.session.user === undefined) {
     res.json('You gotta log in before you can log out');
     return;
