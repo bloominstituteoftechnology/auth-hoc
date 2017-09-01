@@ -171,7 +171,8 @@ server.get('/restricted/users', (req, res) => {
     if (!err) {
       res.json(jake);
     }
-    res.json(err);
+    sendUserError(err, res);
+    return;
   });
 });
 
