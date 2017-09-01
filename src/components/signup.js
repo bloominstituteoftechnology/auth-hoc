@@ -56,9 +56,9 @@ const mapStateToProps = (state) => {
 };
 
 // Make sure to correctly fill in this `connect` call
-SignUp = connect(mapStateToProps, { SignUp })(SignUp);
+SignUp = connect(mapStateToProps, { login })(SignUp);
 
 export default reduxForm({
   form: 'signup',
-  fields: ['email', 'password', 'confirmPassword'],
+  fields: ['username', 'password', 'confirmPassword'],
 })(SignUp);
