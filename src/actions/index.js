@@ -8,7 +8,6 @@ export const USER_UNAUTHENTICATED = 'USER_UNAUTHENTICATED';
 export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
 export const GET_USERS = 'GET_USERS';
 export const CHECK_IF_AUTHENTICATED = 'CHECK_IF_AUTHENTICATED';
-
 export const authError = (error) => {
   return {
     type: AUTHENTICATION_ERROR,

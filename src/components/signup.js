@@ -5,8 +5,8 @@ import { reduxForm, Field } from 'redux-form';
 import { register } from '../actions';
 
 class SignUp extends Component {
-  handleFormSubmit({username, password, comfirmPassword}) {
-    this.props.register(username, password, comfirmPassword, this.props.history);
+  handleFormSubmit({username, password, confirmPassword}) {
+    this.props.register(username, password, confirmPassword, this.props.history);
   }
   // This component needs a `handleFormSubmit` function that takes in
   // username, password, comfirmPassword strings as input and
@@ -39,7 +39,7 @@ class SignUp extends Component {
         </fieldset>
         <fieldset>
           <label>ConfirmPassword:</label>
-          <Field name="confirmpassword" component="input" type="password" />
+          <Field name="confirmPassword" component="input" type="password" />
         </fieldset>
         <button action="submit">Sign Up</button>
         {this.renderAlert()}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 // import ReduxThunk from 'redux-thunk';
 
 export default (ComposedComponent) => {
@@ -15,10 +15,11 @@ export default (ComposedComponent) => {
 
     render() {
       if (this.props.authenticated) {
-        ReactDOM.render(
-          ComposedComponent,
-          document.getElementById('root')
-        );
+        // ReactDOM.render(
+        //   ComposedComponent,
+        //   document.getElementById('root')
+         return<ComposedComponent />;
+        // );
       }
       // Here, check to see if `this.props.authenticated` is true
       // If it isn't, then we don't want this component to return anything
