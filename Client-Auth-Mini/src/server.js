@@ -183,7 +183,7 @@ server.get('/restricted/*', (req, res) => {
 // LOG-OUT - Q: SHOULD THIS BE AN HTTP DELETE OR POST METHOD?
 //           A: PUT to modify login status, DELETE to remove the user from record
 // https://www.npmjs.com/package/express-session
-server.delete('/logout', (req, res) => {
+server.post('/logout', (req, res) => {
   if (req.session.user === undefined) {
     res.json('You gotta log in before you can log out');
     return;
