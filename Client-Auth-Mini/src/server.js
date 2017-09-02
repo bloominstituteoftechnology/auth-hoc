@@ -15,9 +15,9 @@ const server = express();
 
 const corsOptions = {
   origin: 'http://localhost:3001',
-  methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
-  preflightContinue: true,
-  optionsSuccessStatus: 204,
+// methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
+// preflightContinue: true,
+// optionsSuccessStatus: 204,
   credentials: true // enable set cookie
 };
 
