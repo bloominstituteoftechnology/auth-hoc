@@ -1,10 +1,11 @@
+// action types imported from actions/index.js
 import {
   USER_AUTHENTICATED,
   USER_UNAUTHENTICATED,
   AUTHENTICATION_ERROR,
   CHECK_IF_AUTHENTICATED,
 } from '../actions';
-
+//                state  action
 export default (auth = {}, action) => {
   switch (action.type) {
     case USER_AUTHENTICATED:
