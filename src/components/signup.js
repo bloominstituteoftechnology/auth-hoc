@@ -8,10 +8,10 @@ class SignUp extends Component {
   handleFormSubmit({username, password, confirmPassword}) {
     this.props.register(username, password, confirmPassword, this.props.history);
   }
-  // This component needs a `handleFormSubmit` function that takes in 
-  // username, password, confirmPassword strings as input and 
-  // invokes the `register` action 
-  
+  // This component needs a `handleFormSubmit` function that takes in
+  // username, password, confirmPassword strings as input and
+  // invokes the `register` action
+
   renderAlert = () => {
     if (!this.props.error) return null;
     return (

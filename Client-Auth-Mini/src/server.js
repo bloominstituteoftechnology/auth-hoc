@@ -15,13 +15,17 @@ const server = express();
 
 const corsOptions = {
   origin: 'http://localhost:3001',
-// methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
-// preflightContinue: true,
-// optionsSuccessStatus: 204,
   credentials: true // enable set cookie
 };
 
-server.use(cors(corsOptions));               // <~~~ added GLOBAL CORS
+// const corsOptions = {
+//   "origin": "http://localhost:3000",
+//   "credentials": true // enable set cookie
+// };
+
+server.use(cors(corsOptions));
+
+// server.use(cors());               // <~~~ added GLOBAL CORS
 
 server.use(bodyParser.json()); // <~~~ Higher Order Function
 
@@ -145,6 +149,14 @@ server.get('/me', isRegisteredUserLoggedIn, (req, res) => {
 //   next();
 // });
 
+//server.get('/restricted/users', (req, res) => {
+//  User.find({}, (err, users) => {
+//    if (err) {
+//      res.json(err);
+//    }
+//    res.json(users);
+//  });
+
 server.get('/restricted/*', (req, res) => {
   res.json({ hidden: 'hidden' }); // <--- Wizard Jim!!!!!
 });
@@ -170,15 +182,18 @@ server.get('/top-secret/*', (req, res) => {
 server.post('/logout', (req, res) => {
   if (req.session.user === undefined) {
     res.json('You gotta log in before you can log out');
-    return;
+    // return;
   }
-  req.session.destroy((err) => { // <~~~~~~~~~~~~ WHAT COULD CAUSE AN ERROR HERE? (Just programming mistakes? Server timeout? etc.?)
-    if (!err) {
-      res.json('GedOUTTAhea!');
-      return;
-    }
-    sendServerError(err, res);
-  });
+  // req.session.user = null; // SEAN
+  req.session.destroy();      // JAKEnJulian
+  res.json({ success: true}); // JAKEnJulian
+  // req.session.destroy((err) => { // <~~~~~~~~~~~~ WHAT COULD CAUSE AN ERROR HERE? (Just programming mistakes? Server timeout? etc.?)
+  //   if (!err) {
+  //     res.json('GedOUTTAhea!');
+  //     return;
+  //   }
+  //   sendServerError(err, res);
+  // });
 });
 
 // DEMONSTRATING INDEPENDENT CLIENT SESSIONS

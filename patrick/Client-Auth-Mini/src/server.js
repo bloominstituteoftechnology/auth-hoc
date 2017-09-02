@@ -13,7 +13,20 @@ const BCRYPT_COST = 11;
 
 const server = express();
 
-// server.use(cors());               // <~~~ added GLOBAL CORS
+const corsOptions = {
+  origin: 'http://localhost:3001',
+  methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
+  preflightContinue: true,
+  optionsSuccessStatus: 204,
+  credentials: true // enable set cookie
+};
+
+// const corsOptions = {
+//   "origin": "http://localhost:3000",
+//   "credentials": true // enable set cookie
+// };
+
+server.use(cors(corsOptions));    // <~~~ added GLOBAL CORS
 
 server.use(bodyParser.json()); // <~~~ Higher Order Function
 
@@ -57,8 +70,9 @@ const confirmNameAndPassword = ((req, res, next) => {
 });
 // REGISTER A USER: POST THEIR USERNAME AND PASSWORD
 // ALSO WITH CORS MIDDLEWARE
-server.post('/users', cors(), confirmNameAndPassword, (req, res) => {
+server.post('/users', confirmNameAndPassword, (req, res) => {
   const { username, password } = req.body;
+  console.log(username, password);
   bcrypt.hash(password, BCRYPT_COST, (err, passwordHash) => {
     //  VVV ------------------------------------- WHAT COULD CAUSE AN ERROR HERE? (Just programming mistakes? Bad user input?)
     if (err) sendServerError({ 'That password broke us :_(': err.message, 'ERROR STACK': err.stack }, res);
@@ -74,7 +88,7 @@ server.post('/users', cors(), confirmNameAndPassword, (req, res) => {
 });
 // LOGIN IN "REGISTERED" USER
 // ALSO WITH CORS MIDDLEWARE
-server.post('/login', cors(), confirmNameAndPassword, (req, res) => {
+server.post('/login', confirmNameAndPassword, (req, res) => {
   const { username, password } = req.body;
   User.findOne({ username })
   .exec()
@@ -96,6 +110,7 @@ server.post('/login', cors(), confirmNameAndPassword, (req, res) => {
           sendUserError('That password just aint right!', res);
         } else {
           req.session.user = loggingInUser;
+          console.log(req.session);
           res.json({ success: true });
         }
       });
@@ -123,23 +138,24 @@ server.get('/me', isRegisteredUserLoggedIn, (req, res) => {
 
 // GLOBAL MIDDLEWARE for EXTRA CREDIT http://localhost:3000/restricted/...
 // USING JS REGEX
-server.use((req, res, next) => {
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
-  if (req.path.match(/restricted\/[\S]/)) { // <~~~~~~~~~~ props to Ely!!!!!!!!
-    if (!req.session.user) {
-      sendUserError('Who do you think you are????!!!???', res);
-      return;
-    }
-    res.json(`Well, hello there ${req.session.user.username}. Welcome to the InterZone.`);
-  }
-  next();
-});
+// server.use((req, res, next) => {
+//   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match
+//   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+//   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
+//   if (req.path.match(/restricted\/[\S]/)) { // <~~~~~~~~~~ props to Ely!!!!!!!!
+//     // console.log(req.session);
+//     if (!req.session.user) {
+//       sendUserError('Who do you think you are????!!!???', res);
+//       return;
+//     }
+//     res.json(`Well, hello there ${req.session.user.username}. Welcome to the InterZone.`);
+//   }
+//   next();
+// });
 // GLOBAL MIDDLEWARE for EXTRA CREDIT http://localhost:3000/top-secret/...
 // USING WILDCARD *
 // ALSO WITH CORS MIDDLEWARE
-server.use('/top-secret/*', cors(), (req, res, next) => { // <~~~~ props to Antonio & Jake!!
+server.use('/top-secret/*', (req, res, next) => { // <~~~~ props to Antonio & Jake!!
   if (!req.session.user) {
     sendUserError('You need to tell us who you are for TOP-SECRET STUFF!!!', res);
     return;
@@ -150,11 +166,24 @@ server.get('/top-secret/*', (req, res) => {
   res.json(`Hi ${req.session.user.username}. Val Kilmer was great in, 'TOP-SECRET' (1984).`);
 });
 
+// server.get('/restricted/users', (req, res) => {
+//   User.find({}, (err, jake) => {
+//     if (!err) {
+//       res.json(jake);
+//     }
+//     sendUserError(err, res);
+//     // return;
+//   });
+// });
+server.get('/restricted/*', (req, res) => {
+  res.json({ hidden: 'hidden' }); // <--- Wizard Jim!!!!!
+});
+
 
 // LOG-OUT - Q: SHOULD THIS BE AN HTTP DELETE OR POST METHOD?
 //           A: PUT to modify login status, DELETE to remove the user from record
 // https://www.npmjs.com/package/express-session
-server.delete('/logout', (req, res) => {
+server.post('/logout', (req, res) => {
   if (req.session.user === undefined) {
     res.json('You gotta log in before you can log out');
     return;
