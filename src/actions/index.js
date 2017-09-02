@@ -2,7 +2,7 @@ import axios from 'axios';
 const ROOT_URL = 'http://localhost:3000';
 
 axios.defaults.withCredentials = true;
-// this is a list of all (defined) possible action types
+// this is a list of all (defined) possible Action Types
 export const USER_REGISTERED = 'USER_REGISTERED'; // register action
 export const USER_AUTHENTICATED = 'USER_AUTHENTICATED'; // login action
 export const USER_UNAUTHENTICATED = 'USER_UNAUTHENTICATED'; // logout action
