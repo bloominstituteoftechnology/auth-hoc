@@ -149,13 +149,16 @@ server.get('/me', isRegisteredUserLoggedIn, (req, res) => {
 //   next();
 // });
 
-server.get('/restricted/users', (req, res) => {
-  User.find({}, (err, users) => {
-    if (err) {
-      res.json(err);
-    }
-    res.json(users);
-  });
+//server.get('/restricted/users', (req, res) => {
+//  User.find({}, (err, users) => {
+//    if (err) {
+//      res.json(err);
+//    }
+//    res.json(users);
+//  });
+
+server.get('/restricted/*', (req, res) => {
+  res.json({ hidden: 'hidden' }); // <--- Wizard Jim!!!!!
 });
 
 // GLOBAL MIDDLEWARE for EXTRA CREDIT http://localhost:3000/top-secret/...

@@ -12,6 +12,7 @@ export default (ComposedComponent) => {
             if (!this.props.authenticated) {
                 // window.location = '/signin';
                 this.props.history.push('/signin');
+
             };
         }
 
