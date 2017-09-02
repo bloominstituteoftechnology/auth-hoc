@@ -6,9 +6,10 @@ axios.defaults.withCredentials = true;
 export const USER_REGISTERED = 'USER_REGISTERED'; // register action
 export const USER_AUTHENTICATED = 'USER_AUTHENTICATED'; // login action
 export const USER_UNAUTHENTICATED = 'USER_UNAUTHENTICATED'; // logout action
-export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR'; // authentication error: used in register, login, logout,
 export const GET_USERS = 'GET_USERS'; // getUsers action: available upon successful login 
-export const CHECK_IF_AUTHENTICATED = 'CHECK_IF_AUTHENTICATED'; // 
+
+export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR'; // authentication error: used in register, login, logout, get users
+export const CHECK_IF_AUTHENTICATED = 'CHECK_IF_AUTHENTICATED'; // checkIfAuthenticated
 
 export const authError = (error) => {
   return {
