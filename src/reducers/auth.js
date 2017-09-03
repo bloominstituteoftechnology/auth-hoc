@@ -18,6 +18,6 @@ export default (auth = {}, action) => {
     case CHECK_IF_AUTHENTICATED: // authentication check 
       return { ...auth };
     default:
-      return auth;
+      return auth; // return state that was sent to this f(x)
   }
 };
