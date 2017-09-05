@@ -1,3 +1,7 @@
+// ****** QUESTION ******
+// where does dispatch come from ?
+// for example, run me through the login action
+
 import axios from 'axios';
 const ROOT_URL = 'http://localhost:3000';
 

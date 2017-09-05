@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import SignIn from '../signin';
 // import Users from '../users';
-// QUESTION
+
+// ***** QUESTION ****** 
 // import { checkIfAuthenticated } from '../../actions'; <<< Where are we using this action? 
 // Refer to Sean's lecture (minute 20:40). we aren't mapping it on line 39.. ?
 
