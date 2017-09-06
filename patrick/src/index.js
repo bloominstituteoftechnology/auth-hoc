@@ -8,14 +8,7 @@ import SignUp from './components/signup';
 import RequireAuth from './components/HOC/RequireAuth';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-/* Action creators (i.e., the actions we wrote in actions/index.js) are an ideal place to write 
-your application logic, and writing that logic often means having to deal with asynchronicity. 
-When we make a request for some data from a web server, it takes time to receive a response. 
-We need to be able to work with action creators that can wait for a result before dispatching an 
-action. Redux-thunk is middleware that we can add to our store. It allows us to build powerful 
-action creators called thunks. Thunks are higher order functions that give you control over when 
-and how often the actions are dispatched.*/
-import ReduxThunk from 'redux-thunk';  
+import ReduxThunk from 'redux-thunk';
 import {
   BrowserRouter as Router,
   Route,

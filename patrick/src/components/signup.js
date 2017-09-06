@@ -6,7 +6,7 @@ import { register } from '../actions';
 
 class SignUp extends Component {
   handleFormSubmit({username, password, confirmPassword}) {
-    this.props.register(username, password, confirmPassword, this.props.history); // .history API does same as 'window.location = URL (i.e., /users)'; ReactRouter provides History
+    this.props.register(username, password, confirmPassword, this.props.history);
   }
   // This component needs a `handleFormSubmit` function that takes in
   // username, password, confirmPassword strings as input and
@@ -46,10 +46,11 @@ class SignUp extends Component {
     );
   }
 }
-          
+
 const mapStateToProps = (state) => {
   return {
-    error: state.auth.error
+    error: state.auth.error,
+    authenticated: state.auth.authenticated
   };
 };
 
@@ -58,5 +59,5 @@ SignUp = connect(mapStateToProps, { register })(SignUp);
 
 export default reduxForm({
   form: 'signup',
-  fields: ['username', 'password', 'confirmPassword'],
+  fields: ['email', 'password', 'confirmPassword'],
 })(SignUp);

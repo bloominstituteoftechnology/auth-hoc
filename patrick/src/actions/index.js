@@ -1,24 +1,13 @@
-// ACTIONS Are exported / used in their respective REDUCERS
-// ****** QUESTION ******
-// 1. Where does dispatch come from ?
-// for example, run me through the login action
-// 2. how do you know when a promise will be returned ?
-
-
 import axios from 'axios';
-// Fixes an issue with axios and express-session where sessions
-// would not persist between routes
 axios.defaults.withCredentials = true;
 const ROOT_URL = 'http://localhost:3000';
 
-axios.defaults.withCredentials = true;
-// this is a list of all (defined) possible Action Types
-export const USER_REGISTERED = 'USER_REGISTERED'; // register action
-export const USER_AUTHENTICATED = 'USER_AUTHENTICATED'; // login action
-export const USER_UNAUTHENTICATED = 'USER_UNAUTHENTICATED'; // logout action
-export const GET_USERS = 'GET_USERS'; // getUsers action: available upon successful login 
-
-export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR'; // authentication error: used in register, login, logout, get users
+export const USER_REGISTERED = 'USER_REGISTERED';
+export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
+export const USER_UNAUTHENTICATED = 'USER_UNAUTHENTICATED';
+export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
+export const GET_USERS = 'GET_USERS';
+export const CHECK_IF_AUTHENTICATED = 'CHECK_IF_AUTHENTICATED';
 
 export const authError = (error) => {
   return {
@@ -87,5 +76,11 @@ export const getUsers = () => {
       .catch(() => {
         dispatch(authError('Failed to fetch users'));
       });
+  };
+};
+
+export const checkIfAuthenticated = () => {
+  return {
+    type: CHECK_IF_AUTHENTICATED
   };
 };

@@ -1,11 +1,11 @@
-import AuthReducer from './auth';
-import UsersReducer from './users';
 import { combineReducers } from 'redux';
+import AuthReducer from './auth';
 import { reducer as FormReducer } from 'redux-form';
+import UsersReducer from './users';
 
 const rootReducer = combineReducers({
   auth: AuthReducer,
-  form: FormReducer, // this FormReducer comes from redux-form. it doesn't have a file.
+  form: FormReducer,
   users: UsersReducer,
 });
 
