@@ -6,7 +6,7 @@ import { register } from '../actions';
 
 class SignUp extends Component {
   handleFormSubmit({username, password, confirmPassword}) {
-    this.props.register(username, password, confirmPassword, this.props.history);
+    this.props.register(username, password, confirmPassword, this.props.history); // .history API does same as 'window.location = URL (i.e., /users)'; ReactRouter provides History
   }
   // This component needs a `handleFormSubmit` function that takes in
   // username, password, confirmPassword strings as input and

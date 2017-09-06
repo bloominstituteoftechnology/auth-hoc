@@ -1,4 +1,7 @@
 // REDUCER: TAKES IN ACTIONS + UPDATES PART OF APPLICATION STATE
+
+// Explain why the action.type (e.g., CHECK_IF_AUTHENTICATED) is used in the switch statement,
+// and not its f(x) that was exported from actions/index.js (e.g., checkIfAuthenticated() => {})
 import { // ACTION TYPES imported from actions/index.js
   USER_AUTHENTICATED,
   USER_UNAUTHENTICATED,

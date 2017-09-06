@@ -1,6 +1,9 @@
+// ACTIONS Are exported / used in their respective REDUCERS
 // ****** QUESTION ******
-// where does dispatch come from ?
+// 1. Where does dispatch come from ?
 // for example, run me through the login action
+// 2. how do you know when a promise will be returned ?
+
 
 import axios from 'axios';
 const ROOT_URL = 'http://localhost:3000';
@@ -13,7 +16,6 @@ export const USER_UNAUTHENTICATED = 'USER_UNAUTHENTICATED'; // logout action
 export const GET_USERS = 'GET_USERS'; // getUsers action: available upon successful login 
 
 export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR'; // authentication error: used in register, login, logout, get users
-export const CHECK_IF_AUTHENTICATED = 'CHECK_IF_AUTHENTICATED'; // checkIfAuthenticated
 
 export const authError = (error) => {
   return {
@@ -82,11 +84,5 @@ export const getUsers = () => {
       .catch(() => {
         dispatch(authError('Failed to fetch users'));
       });
-  };
-};
-
-export const checkIfAuthenticated = () => {
-  return {
-    type: CHECK_IF_AUTHENTICATED
   };
 };
