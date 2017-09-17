@@ -1,34 +1,39 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import './style.css'
 
 class Header extends Component {
   getLinks() {
     if (this.props.authenticated) {
       return (
-        <li>
-          <Link to="/signout">Sign Out</Link>
+        <li className="nav-item">
+          <Link className="nav-link" to="/signout">Sign Out</Link>
         </li>
       );
     }
     return [
-      <li key={1}>
-        <Link to="/signin">Sign In</Link>
+      <li key={1} className="nav-item">
+        <Link className="nav-link" to="/signin">Sign In</Link>
       </li>,
-      <li key={2}>
-        <Link to="/signup">Sign Up</Link>
-      </li>,
+      <li key={2} className="nav-item">
+        <Link className="nav-link" to="/signup">Sign Up</Link>
+      </li>
     ];
   }
 
   render() {
     return (
-      <div>
-        <Link to="/">Client Auth</Link>
-        <ul>
-          {this.getLinks()}
-        </ul>
-      </div>
+      <nav className="navbar navbar-default">
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <Link className="navbar-brand" to="/">Client Auth</Link>
+          </div>
+          <ul className="nav navbar-nav navbar-right">
+            {this.getLinks()}
+          </ul>
+        </div>
+      </nav>
     );
   }
 }

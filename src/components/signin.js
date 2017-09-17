@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
-import { login } from '../actions';
+import { signIn } from '../actions';
 import { connect } from 'react-redux';
+import { Panel } from 'react-bootstrap';
+import './style.css'
 
 class SignIn extends Component {
-  handleFormSubmit({email, password}) {
-    this.props.signIn(email, password, this.props.history);
+  handleFormSubmit({username, password}) {
+    this.props.signIn(username, password, this.props.history);
   }
 
   renderAlert() {
@@ -19,18 +21,20 @@ class SignIn extends Component {
     const { handleSubmit } = this.props;
 
     return (
-      <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-        <fieldset>
-          <label>Email:</label>
-          <Field name="email" component="input" type="text" />
-        </fieldset>
-        <fieldset>
-          <label>Password:</label>
-          <Field name="password" component="input" type="password" />
-        </fieldset>
-        <button action="submit">Sign In</button>
-        {this.renderAlert()}
-      </form>
+      <Panel className="signupPanel">
+        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+          <fieldset className="signupField">
+            <label>Username:</label>
+            <Field name="username" component="input" type="text" />
+          </fieldset>
+          <fieldset className="signupField">
+            <label>Password:</label>
+            <Field name="password" component="input" type="password" />
+          </fieldset>
+          <button action="submit" className="btn btn-primary signupButton">Sign In</button>
+          {this.renderAlert()}
+        </form>
+      </Panel>
     );
   }
 }
@@ -46,5 +50,5 @@ SignIn = connect(mapStateToProps, { signIn })(SignIn);
 
 export default reduxForm({
   form: 'signin',
-  fields: ['email', 'password'],
+  fields: ['username', 'password'],
 })(SignIn);

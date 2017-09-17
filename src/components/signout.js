@@ -9,7 +9,7 @@ class SignOut extends Component {
 
   render() {
     return (
-      <div>You have signed out</div>
+      <div style={{'text-align': "center", 'font-size': "23px"}}>You have signed out</div>
     );
   }
 }

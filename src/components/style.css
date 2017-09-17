@@ -1,0 +1,26 @@
+.headerPanel {
+    width: 80%;
+    margin: 30px auto;
+    text-align: center;
+    font-size: 18px;
+}
+
+.headerTopGroup a {
+    color: white;
+}
+
+.signupPanel {
+    width: 20%;
+    margin: auto;
+}
+
+.signupField {
+    margin-top: 20px;
+    width: 500px;
+}
+
+.signupButton {
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+}
