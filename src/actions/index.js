@@ -19,9 +19,6 @@ export const authError = (error) => {
 };
 
 export const register = (username, password, confirmPassword, history) => {
-  console.log('username => ', username);
-  console.log('password => ', password);
-  console.log('confirmPassword => ', confirmPassword);
 
   return (dispatch) => {
     if (password !== confirmPassword) {
