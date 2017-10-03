@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { signOutUser } from '../actions';
+import { logout } from '../actions';
 
 class SignOut extends Component {
   componentWillMount() {
-    this.props.signOutUser();
+    localStorage.removeItem('token');
   }
 
   render() {
@@ -14,4 +14,4 @@ class SignOut extends Component {
   }
 }
 
-export default connect(null, { signOutUser })(SignOut);
+export default connect(null, { logout })(SignOut);

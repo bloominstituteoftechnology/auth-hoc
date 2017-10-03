@@ -2,7 +2,7 @@ import axios from 'axios';
 // Fixes an issue with axios and express-session where sessions
 // would not persist between routes
 axios.defaults.withCredentials = true;
-const ROOT_URL = 'http://localhost:3000';
+const ROOT_URL = 'http://localhost:5000';
 
 export const USER_REGISTERED = 'USER_REGISTERED';
 export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
@@ -25,11 +25,12 @@ export const register = (username, password, confirmPassword, history) => {
       return;
     }
     axios.post(`${ROOT_URL}/users`, { username, password })
-      .then(() => {
+      .then((res) => {
         dispatch({
           type: USER_REGISTERED,
         });
         history.push('/signin');
+        localStorage.setItem('token', res.data.token);
       })
       .catch(() => {
         dispatch(authError('Failed to register user'));
@@ -40,11 +41,12 @@ export const register = (username, password, confirmPassword, history) => {
 export const login = (username, password, history) => {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/login`, { username, password })
-      .then(() => {
+      .then((res) => {
         dispatch({
           type: USER_AUTHENTICATED,
         });
         history.push('/users');
+        localStorage.setItem('token', res.data.token);
       })
       .catch(() => {
         dispatch(authError('Incorrect email/password combo'));
@@ -59,6 +61,7 @@ export const logout = () => {
         dispatch({
           type: USER_UNAUTHENTICATED,
         });
+        localStorage.removeItem('token');
       })
       .catch(() => {
         dispatch(authError('Failed to log you out'));
@@ -68,7 +71,7 @@ export const logout = () => {
 
 export const getUsers = () => {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/restricted/users`)
+    axios.get(`${ROOT_URL}/users`, { headers: { 'authorization': localStorage.getItem('token') }})
       .then((response)=> {
         dispatch({
           type: GET_USERS,
