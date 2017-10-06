@@ -17,7 +17,7 @@ class Header extends Component {
       </li>,
       <li key={2}>
         <Link to="/signup">Sign Up</Link>
-      </li>,
+      </li>
     ];
   }
 
@@ -25,17 +25,15 @@ class Header extends Component {
     return (
       <div>
         <Link to="/">Client Auth</Link>
-        <ul>
-          {this.getLinks()}
-        </ul>
+        <ul>{this.getLinks()}</ul>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    authenticated: state.auth.authenticated,
+    authenticated: state.auth.authenticated
   };
 };
 

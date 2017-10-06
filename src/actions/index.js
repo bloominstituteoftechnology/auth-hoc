@@ -11,23 +11,24 @@ export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
 export const GET_USERS = 'GET_USERS';
 export const CHECK_IF_AUTHENTICATED = 'CHECK_IF_AUTHENTICATED';
 
-export const authError = (error) => {
+export const authError = error => {
   return {
     type: AUTHENTICATION_ERROR,
-    payload: error,
+    payload: error
   };
 };
 
 export const register = (username, password, confirmPassword, history) => {
-  return (dispatch) => {
+  return dispatch => {
     if (password !== confirmPassword) {
       dispatch(authError('Passwords do not match'));
       return;
     }
-    axios.post(`${ROOT_URL}/users`, { username, password })
+    axios
+      .post(`${ROOT_URL}/users`, { username, password })
       .then(() => {
         dispatch({
-          type: USER_REGISTERED,
+          type: USER_REGISTERED
         });
         history.push('/signin');
       })
@@ -38,11 +39,12 @@ export const register = (username, password, confirmPassword, history) => {
 };
 
 export const login = (username, password, history) => {
-  return (dispatch) => {
-    axios.post(`${ROOT_URL}/login`, { username, password })
+  return dispatch => {
+    axios
+      .post(`${ROOT_URL}/login`, { username, password })
       .then(() => {
         dispatch({
-          type: USER_AUTHENTICATED,
+          type: USER_AUTHENTICATED
         });
         history.push('/users');
       })
@@ -53,11 +55,12 @@ export const login = (username, password, history) => {
 };
 
 export const logout = () => {
-  return (dispatch) => {
-    axios.post(`${ROOT_URL}/logout`)
+  return dispatch => {
+    axios
+      .post(`${ROOT_URL}/logout`)
       .then(() => {
         dispatch({
-          type: USER_UNAUTHENTICATED,
+          type: USER_UNAUTHENTICATED
         });
       })
       .catch(() => {
@@ -67,9 +70,10 @@ export const logout = () => {
 };
 
 export const getUsers = () => {
-  return (dispatch) => {
-    axios.get(`${ROOT_URL}/restricted/users`)
-      .then((response)=> {
+  return dispatch => {
+    axios
+      .get(`${ROOT_URL}/restricted/users`)
+      .then(response => {
         dispatch({
           type: GET_USERS,
           payload: response.data

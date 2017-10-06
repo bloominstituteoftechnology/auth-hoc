@@ -4,15 +4,13 @@ import { login } from '../actions';
 import { connect } from 'react-redux';
 
 class SignIn extends Component {
-  handleFormSubmit({email, password}) {
+  handleFormSubmit({ email, password }) {
     this.props.signIn(email, password, this.props.history);
   }
 
   renderAlert() {
     if (!this.props.error) return null;
-    return (
-      <h3>{this.props.error}</h3>
-    );
+    return <h3>{this.props.error}</h3>;
   }
 
   render() {
@@ -35,16 +33,16 @@ class SignIn extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     error: state.auth.error,
-    authenticated: state.auth.authenticated,
+    authenticated: state.auth.authenticated
   };
 };
 
-SignIn = connect(mapStateToProps, { signIn })(SignIn);
+SignIn = connect(mapStateToProps, { login })(SignIn);
 
 export default reduxForm({
   form: 'signin',
-  fields: ['email', 'password'],
+  fields: ['email', 'password']
 })(SignIn);

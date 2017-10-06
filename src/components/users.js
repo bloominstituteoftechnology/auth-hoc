@@ -6,7 +6,7 @@ class Users extends Component {
   componentDidMount() {
     this.props.getUsers();
   }
-  
+
   render() {
     return (
       <ul>
@@ -18,9 +18,9 @@ class Users extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    users: state.users,
+    users: state.users
   };
 };
 
