@@ -1,24 +1,39 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { login } from '../actions';
 
 class Header extends Component {
-  getLinks() {
-    if (this.props.authenticated) {
-      return (
-        <li>
-          <Link to="/signout">Sign Out</Link>
-        </li>
+  componentWillMount(){
+    if (localStorage.getItem('username'))
+    {
+      this.props.login(
+        localStorage.getItem('username'),
+        localStorage.getItem('password'),
+        this.props.history
       );
     }
-    return [
-      <li key={1}>
-        <Link to="/signin">Sign In</Link>
-      </li>,
-      <li key={2}>
-        <Link to="/signup">Sign Up</Link>
+  }
+  getLinks() {
+    if (this.props.authenticated) {
+      return [
+        <li key={1}>
+          <Link to="/signout">Sign Out</Link>
+        </li>,
+        <li key={2}>
+        <Link to="/users">Users</Link>
       </li>
-    ];
+      ];
+    } else {
+      return [
+        <li key={1}>
+          <Link to="/signin">Sign In</Link>
+        </li>,
+        <li key={2}>
+          <Link to="/signup">Sign Up</Link>
+        </li>
+      ];
+    }
   }
 
   render() {
@@ -37,4 +52,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, { login })(Header);
