@@ -14,7 +14,6 @@ class SignUp extends Component {
 
   renderAlert = () => {
     if (!this.props.error) return null;
-    console.log(this.props, "<--- this is the propz")
     return <h3>{this.props.error}</h3>;
   };
 
