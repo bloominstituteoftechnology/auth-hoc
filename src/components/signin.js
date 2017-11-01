@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 class SignIn extends Component {
   handleFormSubmit({ email, password }) {
-    this.props.signIn(email, password, this.props.history);
+    this.props.login(email, password, this.props.history);
   }
 
   renderAlert() {
@@ -19,7 +19,7 @@ class SignIn extends Component {
     return (
       <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
         <fieldset>
-          <label>Email:</label>
+          <label>Username:</label>
           <Field name="email" component="input" type="text" />
         </fieldset>
         <fieldset>
