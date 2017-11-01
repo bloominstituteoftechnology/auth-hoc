@@ -4,6 +4,7 @@ import { getUsers } from '../actions';
 
 class Users extends Component {
   componentDidMount() {
+    console.log('here');
     this.props.getUsers();
   }
 
