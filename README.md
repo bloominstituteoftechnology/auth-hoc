@@ -18,7 +18,12 @@ that component.
 
 There's lots of starter code in this repo that you can use as a reference. 
 
+## Extra Credit
 ### Client Authentication using JWTs
+While we opted to teach sessions as the main topic with regards to implementing authentication, JWTs are by no means an inferior option compared to sessions. So, mostly due to time constraints, 
+authentication using JWTs has been relegated to extra credit. That being said, the standard todos for this sprint are lighter than what you've been tasked with implementing in previous labs, 
+so it is anticipated that many people will be able to at least attempt the JWT extra credit tasks. 
+
 Clone down [this](https://github.com/LambdaSchool/LS-Auth-JWT/tree/solution) repository, which is an auth 
 server implementation that handles sessions with JWTs instead of sessions. Make sure you're on the _solution_ branch, not the unimplemented _master_ branch.
 The point of this exercise is to have you refactor your client to work with the JWT server, not implement the JWT server itself (unless you really want to). Have a look around the code and
@@ -30,6 +35,5 @@ Some of the things that you'll need to change include:
  * There is no `/restricted/users` route on this server, so don't forget to update this on your client accordingly.
  * Logging out is now an entirely client-side operation. Simply invalidate the JWT client-side. Note that the server doesn't even have a `/logout` route.
 
-## Extra Credit 
-Build the entire client from scratch and duplicate this functionality. It is highly
-encouraged that you attempt this if you finish the project early.
+## Extra Extra Credit 
+Build the entire client from scratch and duplicate this functionality. This is a great exercise to solidify your React/Redux chops!
