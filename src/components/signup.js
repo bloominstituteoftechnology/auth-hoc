@@ -9,39 +9,40 @@ class SignUp extends Component {
   // username, password, comfirmPassword strings as input and
   // invokes the `register` action
   handleFormSubmit = ({ username, password, confirmPassword }) => {
-    }
-  };
-
-  renderAlert = () => {
-    if (!this.props.error) return null;
-    return <h3>{this.props.error}</h3>;
-  };
-
-  render() {
-    // Use reduxForm to build the sign up form
-    // Check the other components to see how reduxForm is used
-    // There needs fields for Username, Password, and Confirm Password
-    const { handleSubmit } = this.props;
-    return (
-      <form onSubmit={handlSubmit(this.handleFormSubmit).bind(this)}>
-        <fieldset>
-          <label>Email:</label>
-          <Field name="email" componenet="input" type="text" />
-        </fieldset>
-        <fieldset>
-          <label>Password:</label>
-          <Field name="password" component="input" type="password" />
-        </fieldset>
-        <fieldset>
-          <label>Confirm Password</label>
-          <Field name="confirmPassword" component="input" type="password"/>
-        </fieldset>
-        <button action="submit">Sign In</button>
-        {this.renderAlert()};
-      </form>
-    );
   }
-}
+};
+
+renderAlert = () => {
+  if (!this.props.error) {
+    return null;
+  }
+  return <h3>{this.props.error}</h3>;
+};
+
+render = () => {
+  // Use reduxForm to build the sign up form
+  // Check the other components to see how reduxForm is used
+  // There needs fields for Username, Password, and Confirm Password
+  const { handleSubmit } = this.props;
+  return (
+    <form onSubmit={handlSubmit(this.handleFormSubmit).bind(this)}>
+      <fieldset>
+        <label>Email:</label>
+        <Field name="email" componenet="input" type="text" />
+      </fieldset>
+      <fieldset>
+        <label>Password:</label>
+        <Field name="password" component="input" type="password" />
+      </fieldset>
+      <fieldset>
+        <label>Confirm Password</label>
+        <Field name="confirmPassword" component="input" type="password" />
+      </fieldset>
+      <button action="submit">Sign In</button>
+      {this.renderAlert()};
+    </form>
+  );
+};
 
 const mapStateToProps = state => {
   return {
