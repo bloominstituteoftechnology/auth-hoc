@@ -17,62 +17,110 @@ export const authError = error => {
     payload: error
   };
 };
-
 export const register = (username, password, confirmPassword, history) => {
   return dispatch => {
+    console.log(`register username: ${username} password: ${password} confirmPassword: ${confirmPassword} ROOT_URL: ${ROOT_URL}`);
     if (password !== confirmPassword) {
       dispatch(authError('Passwords do not match'));
       return;
     }
     axios
-      .post(`${ROOT_URL}/users`, { username, password })
-      .then(() => {
+      .post(`${ROOT_URL}/users`, {
+        username,
+        password
+      })
+      .then((res) => {
+        console.log(`register token : ${res.data.token}`)
+        localStorage.setItem('token', res.data.token);
         dispatch({
           type: USER_REGISTERED
         });
         history.push('/signin');
       })
-      .catch(() => {
-        dispatch(authError('Failed to register user'));
+      .catch((err) => {
+        dispatch(authError(`Failed to register user err: ${err}`));
       });
   };
 };
 
 export const login = (username, password, history) => {
+  let lsToken = localStorage.getItem('token');
+  console.log(`lsToken: ${lsToken}`)
+  const headers = { /* 'Content-Type': 'application/x-www-form-urlencoded',*/
+    'Authorization': `JWT:${lsToken}`
+  };
   return dispatch => {
-    axios
-      .post(`${ROOT_URL}/login`, { username, password })
-      .then(() => {
+    axios({
+        method: 'post',
+        url: `${ROOT_URL}/login`,
+        withCredentials: true,
+        headers,
+        data: {
+          username,
+          password
+        }
+      })
+      .then((res) => {
+        localStorage.setItem('token', res.data.token);
         dispatch({
           type: USER_AUTHENTICATED
         });
         history.push('/users');
       })
-      .catch(() => {
-        dispatch(authError('Incorrect email/password combo'));
+      .catch((err) => {
+        dispatch(authError(`Incorrect username/password combo err: ${err}`));
       });
+    /*
+      axios
+        .post(`${ROOT_URL}/login`, { username, password} , headers )
+        .then((res) => {
+          localStorage.setItem('token', res.data.token);
+          dispatch({
+            type: USER_AUTHENTICATED
+          });
+          history.push('/users');
+        })
+        .catch(() => {
+          dispatch(authError('Incorrect username/password combo'));
+        });
+        */
   };
 };
 
 export const logout = () => {
+  const headers = {
+    Authorization: `${localStorage.getItem('token')}`
+  };
   return dispatch => {
     axios
-      .post(`${ROOT_URL}/logout`)
-      .then(() => {
+    axios({
+        method: 'post',
+        url: `${ROOT_URL}/logout`,
+        withCredentials: true,
+        headers
+      })
+      .then((res) => {
+        console.log(`logout res.success`, res.success);
+        localStorage.removeItem('token');
         dispatch({
           type: USER_UNAUTHENTICATED
         });
       })
-      .catch(() => {
-        dispatch(authError('Failed to log you out'));
+      .catch((err) => {
+        dispatch(authError(`Failed to log you out err: ${err}`));
       });
   };
 };
 
 export const getUsers = () => {
+  const headers = {
+    Authorization: `${localStorage.getItem('token')}`
+  };
   return dispatch => {
     axios
-      .get(`${ROOT_URL}/restricted/users`)
+      .get(`${ROOT_URL}/users`, {
+        headers
+      })
       .then(response => {
         dispatch({
           type: GET_USERS,
