@@ -6,12 +6,16 @@ export default ComposedComponent => {
     componentWillMount() {
       // Here, we want to check to see if `this.props.authenticated` is true
       // If it isn't, then redirect the user back to the /signin page
+
+      // >>>>>>>>>>> it will be replaced with !this.props.token
       if (!this.props.authenticated) {
         this.props.history.push('/signin');
       }
     }
 
     render() {
+      
+      // >>>>>>>>>>> it will be replaced with !this.props.token
       if (!this.props.authenticated) return <div>No Auth</div>
       return (<ComposedComponent />);
       // Here, check to see if `this.props.authenticated` is true

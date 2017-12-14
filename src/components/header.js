@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 class Header extends Component {
   getLinks() {
+    // >>>>>>>>>>> it will be replaced with 'this.props.token'
     if (this.props.authenticated) {
       return (
         <li>
@@ -13,7 +14,7 @@ class Header extends Component {
     }
     return [
       <li key={1}>
-        <Link to="/signin">Sign In</Link>
+        <Link to="/signin">Sign In</Link> 
       </li>,
       <li key={2}>
         <Link to="/signup">Sign Up</Link>

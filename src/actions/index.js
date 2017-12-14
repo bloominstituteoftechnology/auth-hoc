@@ -51,6 +51,23 @@ export const login = (username, password, history) => {
       .catch(() => {
         dispatch(authError('Incorrect email/password combo'));
       });
+    // pseudo code for token
+    // axios
+    //   .post(`${ROOT_URL}/login`, { username, password })
+    //   .then((response) => {
+    //     const token = response.data.token;
+    //     if (token) {
+    //       localStorage.setItem('jwtoken', token)
+    //       dispatch({
+    //         type: USER_AUTHENTICATED,
+    //         payload: token
+    //       })
+    //       history.push('/users');
+    //       return;
+    //     }
+    //   }).catch(() => {
+    //     dispatch(authError('Incorrect email/password combo'));
+    //   });
   };
 };
 
