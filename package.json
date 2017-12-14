@@ -13,6 +13,7 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
+    "cors": "^2.8.4",
     "react-scripts": "^1.0.7"
   },
   "scripts": {

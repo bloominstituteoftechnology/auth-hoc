@@ -49,7 +49,7 @@ export const login = (username, password, history) => {
         history.push('/users');
       })
       .catch(() => {
-        dispatch(authError('Incorrect email/password combo'));
+        dispatch(authError('Incorrect username/password combo'));
       });
   };
 };
@@ -72,7 +72,7 @@ export const logout = () => {
 export const getUsers = () => {
   return dispatch => {
     axios
-      .get(`${ROOT_URL}/restricted/users`)
+      .get(`${ROOT_URL}/users`)
       .then(response => {
         dispatch({
           type: GET_USERS,
