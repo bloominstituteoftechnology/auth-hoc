@@ -2,7 +2,7 @@ import axios from 'axios';
 // Fixes an issue with axios and express-session where sessions
 // would not persist between routes
 axios.defaults.withCredentials = true;
-const ROOT_URL = 'http://localhost:3000';
+const ROOT_URL = 'http://localhost:5000';
 
 export const USER_REGISTERED = 'USER_REGISTERED';
 export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
@@ -51,6 +51,23 @@ export const login = (username, password, history) => {
       .catch(() => {
         dispatch(authError('Incorrect email/password combo'));
       });
+    // pseudo code for token
+    // axios
+    //   .post(`${ROOT_URL}/login`, { username, password })
+    //   .then((response) => {
+    //     const token = response.data.token;
+    //     if (token) {
+    //       localStorage.setItem('jwtoken', token)
+    //       dispatch({
+    //         type: USER_AUTHENTICATED,
+    //         payload: token
+    //       })
+    //       history.push('/users');
+    //       return;
+    //     }
+    //   }).catch(() => {
+    //     dispatch(authError('Incorrect email/password combo'));
+    //   });
   };
 };
 
