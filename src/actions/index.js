@@ -44,17 +44,10 @@ export const register = (username, password, confirmPassword, history) => {
 };
 
 export const login = (username, password, history) => {
-  let lsToken = localStorage.getItem('token');
-  console.log(`lsToken: ${lsToken}`)
-  const headers = { /* 'Content-Type': 'application/x-www-form-urlencoded',*/
-    'Authorization': `JWT:${lsToken}`
-  };
   return dispatch => {
     axios({
         method: 'post',
         url: `${ROOT_URL}/login`,
-        withCredentials: true,
-        headers,
         data: {
           username,
           password
@@ -70,29 +63,15 @@ export const login = (username, password, history) => {
       .catch((err) => {
         dispatch(authError(`Incorrect username/password combo err: ${err}`));
       });
-    /*
-      axios
-        .post(`${ROOT_URL}/login`, { username, password} , headers )
-        .then((res) => {
-          localStorage.setItem('token', res.data.token);
-          dispatch({
-            type: USER_AUTHENTICATED
-          });
-          history.push('/users');
-        })
-        .catch(() => {
-          dispatch(authError('Incorrect username/password combo'));
-        });
-        */
   };
 };
 
 export const logout = () => {
+  const token = localStorage.getItem('token');
   const headers = {
-    Authorization: `${localStorage.getItem('token')}`
+    Authorization: token
   };
   return dispatch => {
-    axios
     axios({
         method: 'post',
         url: `${ROOT_URL}/logout`,
@@ -100,14 +79,15 @@ export const logout = () => {
         headers
       })
       .then((res) => {
-        console.log(`logout res.success`, res.success);
+        console.log(`logout res.data.success`, res.data.success);
         localStorage.removeItem('token');
         dispatch({
           type: USER_UNAUTHENTICATED
         });
       })
       .catch((err) => {
-        dispatch(authError(`Failed to log you out err: ${err}`));
+        if (token)
+          dispatch(authError(`Failed to log you out err: ${err}`));
       });
   };
 };
