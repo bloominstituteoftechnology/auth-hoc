@@ -22,7 +22,7 @@ While we opted to teach sessions as the main topic with regards to implementing 
 authentication using JWTs has been relegated to extra credit. That being said, the standard todos for this sprint are lighter than what you've been tasked with implementing in previous labs, 
 so it is anticipated that many people will be able to at least attempt the JWT extra credit tasks. 
 
-Clone down [this](https://github.com/LambdaSchool/LS-Auth-JWT/tree/solution) repository, which is an auth 
+Clone down [this](https://github.com/LambdaSchool/Auth-JWT) repository, which is an auth 
 server implementation that handles sessions with JWTs instead of sessions. Make sure you're on the _solution_ branch, not the unimplemented _master_ branch.
 The point of this exercise is to have you refactor your client to work with the JWT server, not implement the JWT server itself (unless you really want to). Have a look around the code and
 try to understand as much of what it is doing as you can. `npm install`, start up your `mongod`, then run `nodemon server.js` to start the server. Refactor your client to interface with this server and persist JWTs in localStorage. 
