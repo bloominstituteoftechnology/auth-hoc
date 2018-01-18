@@ -1,4 +1,4 @@
-# LS-Client-Auth
+# Client-Auth
 
 ## Setup 
 Start your MongoDB server by running `mongod` from the command line.
