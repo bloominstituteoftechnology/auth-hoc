@@ -4,13 +4,16 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.1",
+    "cors": "^2.8.4",
+    "jshint": "^2.9.5",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",
     "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
     "redux-form": "^6.7.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "token": "^0.1.0"
   },
   "devDependencies": {
     "react-scripts": "^1.0.7"
