@@ -4,19 +4,23 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.1",
+    "jwt-decode": "^2.2.0",
+    "jwt-express": "^1.1.0",
+    "jwt-express-auth": "^0.1.6",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",
     "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
     "redux-form": "^6.7.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "validator": "^9.2.0"
   },
   "devDependencies": {
     "react-scripts": "^1.0.7"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set PORT=65226 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
