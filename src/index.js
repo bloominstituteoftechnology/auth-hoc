@@ -15,11 +15,17 @@ import {
 } from 'react-router-dom';
 import reducers from './reducers';
 import './index.css';
+import { USER_AUTHENTICATED } from './actions';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
+const store = createStoreWithMiddleware(reducers)
+const token = window.localStorage.getItem('token');
+if(token) {
+  store.dispatch({ type: USER_AUTHENTICATED });
+}
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
+  <Provider store={store}>
     <Router>
       <div>
         <Route path="/" component={App} />
