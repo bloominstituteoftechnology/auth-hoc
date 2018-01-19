@@ -2,7 +2,7 @@ import axios from 'axios';
 // Fixes an issue with axios and express-session where sessions
 // would not persist between routes
 axios.defaults.withCredentials = true;
-const ROOT_URL = 'http://localhost:3000';
+const ROOT_URL = 'http://localhost:3333';
 
 export const USER_REGISTERED = 'USER_REGISTERED';
 export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
@@ -18,14 +18,14 @@ export const authError = error => {
   };
 };
 
-export const register = (username, password, confirmPassword, history) => {
+export const register = (email, password, confirmPassword, history) => {
   return dispatch => {
     if (password !== confirmPassword) {
       dispatch(authError('Passwords do not match'));
       return;
     }
     axios
-      .post(`${ROOT_URL}/users`, { username, password })
+      .post(`${ROOT_URL}/users`, { email, password })
       .then(() => {
         dispatch({
           type: USER_REGISTERED
@@ -38,10 +38,10 @@ export const register = (username, password, confirmPassword, history) => {
   };
 };
 
-export const login = (username, password, history) => {
+export const login = (email, password, history) => {
   return dispatch => {
     axios
-      .post(`${ROOT_URL}/login`, { username, password })
+      .post(`${ROOT_URL}/login`, { email, password })
       .then(() => {
         dispatch({
           type: USER_AUTHENTICATED
@@ -54,7 +54,7 @@ export const login = (username, password, history) => {
   };
 };
 
-export const logout = () => {
+export const logout = (history) => {
   return dispatch => {
     axios
       .post(`${ROOT_URL}/logout`)
