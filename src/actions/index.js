@@ -42,9 +42,10 @@ export const login = (username, password, history) => {
   return dispatch => {
     axios
       .post(`${ROOT_URL}/login`, { username, password })
-      .then(() => {
+      .then((response) => {
         dispatch({
-          type: USER_AUTHENTICATED
+          type: USER_AUTHENTICATED,
+          payload: response.data
         });
         history.push('/users');
       })
@@ -69,18 +70,33 @@ export const logout = () => {
   };
 };
 
-export const getUsers = () => {
+// export const getUsers = () => {
+//   return dispatch => {
+//     axios
+//       .get(`${ROOT_URL}/restricted/users`)
+//       .then(response => {
+//         dispatch({
+//           type: GET_USERS,
+//           payload: response.data
+//         });
+//       })
+//       .catch(() => {
+//         dispatch(authError('Failed to fetch users'));
+//       });
+//   };
+// };
+
+export const validateToken = (token) => {
   return dispatch => {
     axios
-      .get(`${ROOT_URL}/restricted/users`)
+      .get(`${ROOT_URL}/users`, { headers: {authorization: token} })
       .then(response => {
         dispatch({
           type: GET_USERS,
           payload: response.data
         });
+      }).catch(() => {
+        dispatch(authError('Failed to validate token'));
       })
-      .catch(() => {
-        dispatch(authError('Failed to fetch users'));
-      });
-  };
-};
+  }
+}

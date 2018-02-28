@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getUsers } from '../actions';
+// import { getUsers } from '../actions';
 
 class Users extends Component {
   componentDidMount() {
-    this.props.getUsers();
+    // this.props.validateToken();
   }
 
   render() {
@@ -25,4 +25,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getUsers })(Users);
+export default connect(mapStateToProps, {})(Users);
