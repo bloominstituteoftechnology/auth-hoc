@@ -8,12 +8,21 @@ export default ComposedComponent => {
       // Here, we want to check to see if `this.props.authenticated` is true
       // If it isn't, then redirect the user back to the /signin page
       if (!this.props.authenticated) {
-        <Redirect to='/signin' />
+        console.log('not auth');
       }
     }
 
     render() {
-      return <div />
+      return (
+        <div>
+          {this.props.authenticated ? (
+            <ComposedComponent />
+          ) : (
+            <Redirect to="/signin" />
+          )}
+        </div>
+      );
+      // return <div />;
       // <div>
       //   { if(!this.props.authenticated) }
       // </div>
@@ -25,7 +34,7 @@ export default ComposedComponent => {
 
   const mapStateToProps = state => {
     return {
-      authenticated: state.auth.authenticated
+      authenticated: state.auth.authenticated,
     };
   };
 

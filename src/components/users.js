@@ -8,6 +8,7 @@ class Users extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <ul>
         {this.props.users.map((user, i) => {
@@ -20,7 +21,7 @@ class Users extends Component {
 
 const mapStateToProps = state => {
   return {
-    users: state.users
+    users: state.users,
   };
 };
 
