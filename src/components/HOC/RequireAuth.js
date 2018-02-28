@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 
 export default ComposedComponent => {
   class RequireAuthentication extends Component {
@@ -8,7 +7,7 @@ export default ComposedComponent => {
       // Here, we want to check to see if `this.props.authenticated` is true
       // If it isn't, then redirect the user back to the /signin page
       if (!this.props.authenticated) {
-        console.log('not auth');
+        this.props.history.push('/signin');
       }
     }
 
@@ -18,7 +17,7 @@ export default ComposedComponent => {
           {this.props.authenticated ? (
             <ComposedComponent />
           ) : (
-            <Redirect to="/signin" />
+            null
           )}
         </div>
       );
