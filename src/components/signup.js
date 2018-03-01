@@ -51,6 +51,7 @@ class SignUp extends Component {
           />
         </fieldset>
         <button action='submit'>Sign Up</button>
+        {this.renderAlert()}
       </form>
     );
   }
