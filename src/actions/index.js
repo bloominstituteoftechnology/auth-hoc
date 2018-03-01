@@ -57,23 +57,17 @@ export const login = (username, password, history) => {
 
 export const logout = () => {
   return dispatch => {
-    axios
-      .post(`${ROOT_URL}/logout`)
-      .then(() => {
-        dispatch({
-          type: USER_UNAUTHENTICATED
-        });
-      })
-      .catch(() => {
-        dispatch(authError('Failed to log you out'));
-      });
+    dispatch({
+      type: USER_UNAUTHENTICATED
+    });
+    localStorage.removeItem('authorization');
   };
 };
 
 export const getUsers = () => {
   return dispatch => {
     axios
-      .get(`${ROOT_URL}/users`, {headers: {authorization: localStorage.getItem('authorization')}})
+      .get(`${ROOT_URL}/users`, { headers: { authorization: localStorage.getItem('authorization') } })
       .then(response => {
         dispatch({
           type: GET_USERS,
