@@ -4,7 +4,8 @@ import { getUsers } from '../actions';
 
 class Users extends Component {
   componentDidMount() {
-    this.props.getUsers();
+    console.log(this.props.token);
+    this.props.getUsers(this.props.token);
   }
 
   render() {
@@ -20,7 +21,8 @@ class Users extends Component {
 
 const mapStateToProps = state => {
   return {
-    users: state.users
+    users: state.users,
+    token: state.auth.token,
   };
 };
 
