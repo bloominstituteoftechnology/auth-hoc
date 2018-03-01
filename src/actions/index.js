@@ -14,7 +14,7 @@ export const CHECK_IF_AUTHENTICATED = 'CHECK_IF_AUTHENTICATED';
 export const authError = error => {
   return {
     type: AUTHENTICATION_ERROR,
-    payload: error
+    payload: error,
   };
 };
 
@@ -28,7 +28,7 @@ export const register = (username, password, confirmPassword, history) => {
       .post(`${ROOT_URL}/users`, { username, password })
       .then(() => {
         dispatch({
-          type: USER_REGISTERED
+          type: USER_REGISTERED,
         });
         history.push('/signin');
       })
@@ -42,10 +42,11 @@ export const login = (username, password, history) => {
   return dispatch => {
     axios
       .post(`${ROOT_URL}/login`, { username, password })
-      .then((response) => {
+      .then(response => {
+        console.log(response);
         dispatch({
           type: USER_AUTHENTICATED,
-          payload: response.data
+          payload: response.data.token,
         });
         history.push('/users');
       })
@@ -56,47 +57,52 @@ export const login = (username, password, history) => {
 };
 
 export const logout = () => {
+  return { type: USER_UNAUTHENTICATED };
+  // return dispatch => {
+  // axios
+  //   .post(`${ROOT_URL}/logout`)
+  //   .then(() => {
+  //     dispatch({
+  //       type: USER_UNAUTHENTICATED,
+  //     });
+  //   })
+  //   .catch(() => {
+  //     dispatch(authError('Failed to log you out'));
+  //   });
+  // };
+};
+
+export const getUsers = token => {
   return dispatch => {
     axios
-      .post(`${ROOT_URL}/logout`)
-      .then(() => {
+      .get(`${ROOT_URL}/users`, { headers: { authorization: token } })
+      .then(response => {
         dispatch({
-          type: USER_UNAUTHENTICATED
+          type: GET_USERS,
+          payload: response.data,
         });
       })
       .catch(() => {
-        dispatch(authError('Failed to log you out'));
+        dispatch(authError('Failed to fetch users'));
       });
   };
 };
 
-// export const getUsers = () => {
+// export const validateToken = token => {
+//   console.log('validate token before api');
 //   return dispatch => {
 //     axios
-//       .get(`${ROOT_URL}/restricted/users`)
+//       .get(`${ROOT_URL}/users`, { headers: { authorization: token } })
 //       .then(response => {
+//         console('after validate token');
+//         console.log(response);
 //         dispatch({
 //           type: GET_USERS,
-//           payload: response.data
+//           payload: response.data,
 //         });
 //       })
 //       .catch(() => {
-//         dispatch(authError('Failed to fetch users'));
+//         dispatch(authError('Failed to validate token'));
 //       });
 //   };
 // };
-
-export const validateToken = (token) => {
-  return dispatch => {
-    axios
-      .get(`${ROOT_URL}/users`, { headers: {authorization: token} })
-      .then(response => {
-        dispatch({
-          type: GET_USERS,
-          payload: response.data
-        });
-      }).catch(() => {
-        dispatch(authError('Failed to validate token'));
-      })
-  }
-}

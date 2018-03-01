@@ -36,7 +36,7 @@ class SignIn extends Component {
 const mapStateToProps = state => {
   return {
     error: state.auth.error,
-    authenticated: state.auth.authenticated
+    authenticated: state.auth.authenticated,
   };
 };
 
@@ -44,5 +44,5 @@ SignIn = connect(mapStateToProps, { login })(SignIn);
 
 export default reduxForm({
   form: 'signin',
-  fields: ['email', 'password']
+  fields: ['email', 'password'],
 })(SignIn);

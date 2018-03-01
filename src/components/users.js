@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { getUsers } from '../actions';
+import { getUsers } from '../actions';
 
 class Users extends Component {
   componentDidMount() {
-    // this.props.validateToken();
+    console.log(this.props.token);
+    this.props.getUsers(this.props.token);
   }
 
   render() {
-    console.log(this.props);
     return (
       <ul>
         {this.props.users.map((user, i) => {
@@ -22,7 +22,8 @@ class Users extends Component {
 const mapStateToProps = state => {
   return {
     users: state.users,
+    token: state.auth.token,
   };
 };
 
-export default connect(mapStateToProps, {})(Users);
+export default connect(mapStateToProps, { getUsers })(Users);
