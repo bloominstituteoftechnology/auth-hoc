@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-export default ComposedComponent => {
+export default function RequireAuth(ChildComponent) {
   class RequireAuthentication extends Component {
     componentWillMount() {
       // Here, we want to check to see if `this.props.authenticated` is true
       // If it isn't, then redirect the user back to the /signin page
-      if (!this.props.authenticated) {
+      if (!localStorage.getItem('authorization')) {
         this.props.history.push('/signin');
       }
     }
 
     render() {
-      if (this.props.authenticated) {
+      const foundToken = localStorage.getItem('authorization');
+      if (foundToken) {
         return (
-          <ComposedComponent />
+          <ChildComponent />
         );
       }
       return null;
@@ -26,7 +27,8 @@ export default ComposedComponent => {
 
   const mapStateToProps = state => {
     return {
-      authenticated: state.auth.authenticated
+      authenticated: state.auth.authenticated,
+      token: state.auth.token
     };
   };
 

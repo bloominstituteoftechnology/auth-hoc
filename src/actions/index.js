@@ -25,7 +25,7 @@ export const register = (username, password, confirmPassword, history) => {
       return;
     }
     axios
-      .post(`${ROOT_URL}/users`, { username, password })
+      .post(`${ROOT_URL}/api/users`, { username, password })
       .then(() => {
         dispatch({
           type: USER_REGISTERED
@@ -41,11 +41,12 @@ export const register = (username, password, confirmPassword, history) => {
 export const login = (username, password, history) => {
   return dispatch => {
     axios
-      .post(`${ROOT_URL}/login`, { username, password })
-      .then(() => {
+      .post(`${ROOT_URL}/api/login`, { username, password })
+      .then((response) => {
         dispatch({
           type: USER_AUTHENTICATED
         });
+        localStorage.setItem('authorization', response.data.token);
         history.push('/users');
       })
       .catch(() => {
@@ -56,23 +57,17 @@ export const login = (username, password, history) => {
 
 export const logout = () => {
   return dispatch => {
-    axios
-      .post(`${ROOT_URL}/logout`)
-      .then(() => {
-        dispatch({
-          type: USER_UNAUTHENTICATED
-        });
-      })
-      .catch(() => {
-        dispatch(authError('Failed to log you out'));
-      });
+    dispatch({
+      type: USER_UNAUTHENTICATED
+    });
+    localStorage.removeItem('authorization');
   };
 };
 
 export const getUsers = () => {
   return dispatch => {
     axios
-      .get(`${ROOT_URL}/restricted/users`)
+      .get(`${ROOT_URL}/api/users`, {headers: {authorization: localStorage.getItem('authorization')}})
       .then(response => {
         dispatch({
           type: GET_USERS,
