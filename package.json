@@ -4,6 +4,13 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.1",
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "jsonwebtoken": "^8.1.0",
+    "mongoose": "^5.0.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",
@@ -20,5 +27,18 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "description": "## Setup  Start your MongoDB server by running `mongod` from the command line. Start up your Auth server that we extended in the mini lab.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nunulong/Client-Auth.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nunulong/Client-Auth/issues"
+  },
+  "homepage": "https://github.com/nunulong/Client-Auth#readme"
 }

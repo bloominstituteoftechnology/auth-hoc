@@ -2,7 +2,7 @@ import axios from 'axios';
 // Fixes an issue with axios and express-session where sessions
 // would not persist between routes
 axios.defaults.withCredentials = true;
-const ROOT_URL = 'http://localhost:3000';
+const ROOT_URL = 'http://localhost:5000';
 
 export const USER_REGISTERED = 'USER_REGISTERED';
 export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
@@ -18,15 +18,16 @@ export const authError = error => {
   };
 };
 
-export const register = (username, password, confirmPassword, history) => {
+export const register = (email, password, confirmPassword, history) => {
   return dispatch => {
     if (password !== confirmPassword) {
       dispatch(authError('Passwords do not match'));
       return;
     }
     axios
-      .post(`${ROOT_URL}/users`, { username, password })
-      .then(() => {
+      .post(`${ROOT_URL}/api/users`, { email, password })
+      .then((response) => {
+        window.localStorage.setItem('token', response.data.token);
         dispatch({
           type: USER_REGISTERED
         });
@@ -38,13 +39,14 @@ export const register = (username, password, confirmPassword, history) => {
   };
 };
 
-export const login = (username, password, history) => {
+export const login = (email, password, history) => {
   return dispatch => {
     axios
-      .post(`${ROOT_URL}/login`, { username, password })
-      .then(() => {
+      .post(`${ROOT_URL}/api/login`, { email, password })
+      .then((response) => {
+        window.localStorage.setItem('token', response.data.token);
         dispatch({
-          type: USER_AUTHENTICATED
+          type: USER_AUTHENTICATED,
         });
         history.push('/users');
       })
@@ -54,25 +56,22 @@ export const login = (username, password, history) => {
   };
 };
 
-export const logout = () => {
+export const logout = (history) => {
   return dispatch => {
-    axios
-      .post(`${ROOT_URL}/logout`)
-      .then(() => {
-        dispatch({
-          type: USER_UNAUTHENTICATED
-        });
-      })
-      .catch(() => {
-        dispatch(authError('Failed to log you out'));
-      });
+    dispatch({
+      type: USER_UNAUTHENTICATED
+    });
+    window.localStorage.removeItem('token');
   };
 };
 
 export const getUsers = () => {
   return dispatch => {
+    const token = window.localStorage.getItem('token');
     axios
-      .get(`${ROOT_URL}/restricted/users`)
+      .get(`${ROOT_URL}/api/users`, {
+        headers: { 'Authorization': token }
+      })
       .then(response => {
         dispatch({
           type: GET_USERS,
