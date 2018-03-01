@@ -28,7 +28,6 @@ export default function RequireAuth(ChildComponent) {
   const mapStateToProps = state => {
     return {
       authenticated: state.auth.authenticated,
-      token: state.auth.token
     };
   };
 
