@@ -17,7 +17,7 @@ class SignUp extends Component {
     return <h3>{this.props.error}</h3>;
   };
 
-  render() {
+  render() {  
     // Use reduxForm to build the sign up form
     // Check the other components to see how reduxForm is used
     // There needs fields for Username, Password, and Confirm Password
