@@ -14,6 +14,11 @@ class SignUp extends Component {
     return <h3>{this.props.error}</h3>;
   };
 
+  handleFormSubmit = ({ username, password, confirmPassword }) => {
+    const history = this.props.history;
+    this.props.register(username, password, confirmPassword, history);
+  };
+
   render() {
     // Use reduxForm to build the sign up form
     // Check the other components to see how reduxForm is used
@@ -29,7 +34,7 @@ const mapStateToProps = state => {
 };
 
 // Make sure to correctly fill in this `connect` call
-SignUp = connect(null)(SignUp);
+SignUp = connect(mapStateToProps, { register })(SignUp);
 
 export default reduxForm({
   form: 'signup',
