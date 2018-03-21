@@ -9,26 +9,29 @@ import RequireAuth from './components/HOC/RequireAuth';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
-import {
-  BrowserRouter as Router,
-  Route,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import reducers from './reducers';
 import './index.css';
+
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__ || compose;
+// const store = createStore(
+//    reducers,
+//    composeEnhancers(applyMiddleware(ReduxThunk))
+// );
 
 const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
-    <Router>
-      <div>
-        <Route path="/" component={App} />
-        <Route path="/signin" component={SignIn} />
-        <Route path="/users" component={RequireAuth(Users)} />
-        <Route path="/signout" component={SignOut} />
-        <Route path="/signup" component={SignUp} />
-      </div>
-    </Router>
-  </Provider>,
-  document.getElementById('root')
+   <Provider store={createStoreWithMiddleware(reducers)}>
+      <Router>
+         <div>
+            <Route path="/" component={App} />
+            <Route path="/signin" component={SignIn} />
+            <Route path="/users" component={RequireAuth(Users)} />
+            <Route path="/signout" component={SignOut} />
+            <Route path="/signup" component={SignUp} />
+         </div>
+      </Router>
+   </Provider>,
+   document.getElementById('root')
 );
