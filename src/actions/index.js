@@ -42,7 +42,8 @@ export const login = (username, password, history) => {
   return dispatch => {
     axios
       .post(`${ROOT_URL}/login`, { username, password })
-      .then(() => {
+      .then((token) => {
+        localStorage.setItem('token', token);
         dispatch({
           type: USER_AUTHENTICATED
         });

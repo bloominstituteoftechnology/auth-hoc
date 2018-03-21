@@ -1,0 +1,53 @@
+<!--                                       -->
+<!-- Ryan's Example in Class for using HOC -->
+<!--                                       -->
+
+<script type='text/babel'>
+    const HelloWorld = (props) => {
+      console.log('Hello World Props: ', props);
+      return (
+        <h1 onMouseEnter={props.addUpCounter}>{props.text}: {props.counter}</h1>
+      )
+    };
+
+    const Button = (props) => {
+      console.log('Button Props: ', props);
+      return (
+        <button onClick={props.addUpCounter} className="btn btn-primary">Current Count: {props.counter}</button>
+      )
+    };
+    
+    const HigherOrderComponent = (WrappedComponent) => class extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          counter: 0,
+          text: 'Hello World!',
+          name: 'Ryan'
+        }
+        this.addUpCounter = this.addUpCounter.bind(this);
+      }
+      
+      addUpCounter(){
+        this.setState({counter: this.state.counter + 1});
+      }
+
+      render() {
+        return (
+          <div className="container">
+            <WrappedComponent {...this.state} addUpCounter={this.addUpCounter}/>
+          </div>
+        )
+      }
+    };
+
+    const HOCHelloWorld = HigherOrderComponent(HelloWorld);
+    const HOCButton = HigherOrderComponent(Button);
+
+    const App = () => {
+      return (
+        [<HOCHelloWorld />, <HOCButton />]
+      )
+    };
+    ReactDOM.render(<App />, document.getElementById('target'));
+  </script>
