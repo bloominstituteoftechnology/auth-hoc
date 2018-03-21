@@ -1,20 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Users from '../users.js';
+
 
 export default ComposedComponent => {
   class RequireAuthentication extends Component {
     componentWillMount() {
       // Here, we want to check to see if `this.props.authenticated` is true
       // If it isn't, then redirect the user back to the /signin page
-    }
+      const history = this.props.history;
+      if (!this.props.authenticated) {
+        history.push('/login');
+      };
+  };
 
     render() {
-      return <div />;
+      if (!this.props.authenticated) {
+        return <div />;
+      } else {
+        return (
+          <div>
+            <Users />
+          </div>
+        );
+      }
       // Here, check to see if `this.props.authenticated` is true
       // If it isn't, then we don't want this component to return anything
       // Else, render the component that was passed to this higher-order component
-    }
-  }
+    };
+  };
+
 
   const mapStateToProps = state => {
     return {
@@ -24,3 +39,4 @@ export default ComposedComponent => {
 
   return connect(mapStateToProps)(RequireAuthentication);
 };
+
