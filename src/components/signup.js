@@ -10,7 +10,8 @@ class SignUp extends Component {
   // invokes the `register` action
 
   handleFormSubmit({ username, password, confirmPassword }) {
-    this.props.register(username, password, confirmPassword, this.props.history);
+    const { history } = this.props;
+    this.props.register(username, password, confirmPassword, history);
   }
 
   renderAlert = () => {
