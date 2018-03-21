@@ -25,9 +25,9 @@ class SignUp extends Component {
     // There needs fields for Username, Password, and Confirm Password
     return (
       <form onSubmit={ this.props.handleSubmit(this.handleFormSubmit) }>
-        <input type='text' name='username' placeholder='Name' required />
-        <input type='password' name='password' placeholder='Password' required />
-        <input type='password' name='confirmPassword' placeholder='Confirm Password' required />
+        <Field type='text' component="input" name='username' placeholder='Name' required />
+        <Field type='password' component="input" name='password' placeholder='Password' required />
+        <Field type='password' component="input" name='confirmPassword' placeholder='Confirm Password' required />
         <button action='submit'>SIGN UP</button>
         { this.renderAlert() }
       </form>
