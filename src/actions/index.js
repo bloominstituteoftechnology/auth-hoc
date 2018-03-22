@@ -26,7 +26,8 @@ export const register = (username, password, confirmPassword, history) => {
     }
     axios
       .post(`${ROOT_URL}/api/users`, { username, password })
-      .then(() => {
+      .then(res => {
+        localStorage.setItem('token', res.data.token);
         dispatch({
           type: USER_REGISTERED
         });
