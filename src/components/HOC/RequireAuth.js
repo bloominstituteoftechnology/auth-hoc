@@ -13,7 +13,7 @@ export default ComposedComponent => {
     render() {
       return (
         <div>
-          {this.props.authenticated && (<Users />)}
+          {this.props.authenticated && (<ComposedComponent />)}
         </div>
       )
       // Here, check to see if `this.props.authenticated` is true
