@@ -12,6 +12,7 @@ class SignUp extends Component {
     this.props.register(username, password, confirmPassword, this.props.history);
   }
   renderAlert = () => {
+    console.log('render Alert error: ', this.props.error);
     if (!this.props.error) return null;
     return <h3>{this.props.error}</h3>;
   };
@@ -38,7 +39,7 @@ class SignUp extends Component {
             <label>Confirm Password:</label>
             <Field name="confirmPassword" component="input" type="password" />
           </fieldset>
-          <button action="submit">Sign In</button>
+          <button action="submit">Sign Up</button>
           {this.renderAlert()}
         </form>
       </div>
