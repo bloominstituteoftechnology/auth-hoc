@@ -61,16 +61,10 @@ export const login = (username, password, history) => {
 
 export const logout = () => {
   return dispatch => {
-    axios
-      .post(`${ROOT_URL}/logout`)
-      .then(() => {
-        dispatch({
-          type: USER_UNAUTHENTICATED
-        });
-      })
-      .catch(() => {
-        dispatch(authError('Failed to log you out'));
-      });
+    localStorage.removeItem('token');
+    dispatch({
+      type: USER_UNAUTHENTICATED
+    });
   };
 };
 
