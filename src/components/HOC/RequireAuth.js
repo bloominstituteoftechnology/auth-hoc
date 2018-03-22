@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Users from '../users';
 
 export default ComposedComponent => {
   class RequireAuthentication extends Component {
@@ -13,7 +12,7 @@ export default ComposedComponent => {
     render() {
       return (
         <div>
-          {this.props.authenticated ? <Users /> : null}
+          {this.props.authenticated ? <ComposedComponent /> : null}
         </div>
       );
     }
