@@ -13,16 +13,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import reducers from './reducers';
 import './index.css';
 
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__ || compose;
-// const store = createStore(
-//    reducers,
-//    composeEnhancers(applyMiddleware(ReduxThunk))
-// );
-
 const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
 
 ReactDOM.render(
-   <Provider store={createStoreWithMiddleware(reducers)}>
+   <Provider store={createStoreWithMiddleware(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())}>
       <Router>
          <div>
             <Route path="/" component={App} />
