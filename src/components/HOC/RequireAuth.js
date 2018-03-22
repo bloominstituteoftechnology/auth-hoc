@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Users from '../users';
 
 export default ComposedComponent => {
   class RequireAuthentication extends Component {
