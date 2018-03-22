@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Users from '../users.js';
 
 export default ComposedComponent => {
   class RequireAuthentication extends Component {
@@ -13,9 +12,10 @@ export default ComposedComponent => {
     }
 
     render() {
+      // console.log(ComposedComponent);
       return (
         <div>
-          {this.props.authenticated ? <Users /> : null}
+          {this.props.authenticated ? <ComposedComponent /> : null}
         </div>
       );
       // Here, check to see if `this.props.authenticated` is true

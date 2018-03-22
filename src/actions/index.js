@@ -27,7 +27,7 @@ export const register = (username, password, confirmPassword, history) => {
     axios
       .post(`${ROOT_URL}/users`, { username, password })
       .then(() => {
-        console.log('reached here');
+
         dispatch({
           type: USER_REGISTERED
         });
@@ -43,7 +43,7 @@ export const login = (username, password, history) => {
   return dispatch => {
     axios
       .post(`${ROOT_URL}/login`, { username, password })
-      .then(() => {
+      .then((token) => {
         dispatch({
           type: USER_AUTHENTICATED
         });
