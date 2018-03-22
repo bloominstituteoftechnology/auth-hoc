@@ -14,7 +14,7 @@ export const CHECK_IF_AUTHENTICATED = 'CHECK_IF_AUTHENTICATED';
 export const authError = error => {
   return {
     type: AUTHENTICATION_ERROR,
-    payload: error
+    payload: error,
   };
 };
 
@@ -28,7 +28,7 @@ export const register = (username, password, confirmPassword, history) => {
       .post(`${ROOT_URL}/users`, { username, password })
       .then(() => {
         dispatch({
-          type: USER_REGISTERED
+          type: USER_REGISTERED,
         });
         history.push('/signin');
       })
@@ -42,10 +42,11 @@ export const login = (username, password, history) => {
   return dispatch => {
     axios
       .post(`${ROOT_URL}/login`, { username, password })
-      .then(() => {
+      .then(response => {
         dispatch({
-          type: USER_AUTHENTICATED
+          type: USER_AUTHENTICATED,
         });
+        localStorage.setItem('token', response.data.token);
         history.push('/users');
       })
       .catch(() => {
