@@ -9,6 +9,7 @@ class SignUp extends Component {
   // username, password, comfirmPassword strings as input and
   // invokes the `register` action
   handleFormSubmit({username, password, confirmPassword}) {
+    console.log(username, password);
     this.props.register(username, password, confirmPassword, this.props.history);
   }
 
@@ -34,10 +35,11 @@ class SignUp extends Component {
           <Field name="password" component="input" type="password" />
         </fieldset>
         <fieldset>
-          <label>confirmPassword:</label>
+          <label>Confirm Password:</label>
           <Field name="confirmPassword" component="input" type="password" />
         </fieldset>
         <button action="submit">Sign Up</button>
+        {this.renderAlert()}
       </form>
     )
   }
@@ -50,7 +52,7 @@ const mapStateToProps = state => {
 };
 
 // Make sure to correctly fill in this `connect` call
-SignUp = connect(mapStateToProps, {register})(SignUp);
+SignUp = connect(mapStateToProps, { register })(SignUp);
 
 export default reduxForm({
   form: 'signup',
