@@ -8,7 +8,7 @@ class SignUp extends Component {
   // This component needs a `handleFormSubmit` function that takes in
   // username, password, comfirmPassword strings as input and
   // invokes the `register` action
-  handleFormSubmit ({ username, password, confirmPassword}) {
+  handleFormSubmit = ({ username, password, confirmPassword}) => {
     this.props.register(username, password, confirmPassword, this.props.history);
   }
   renderAlert = () => {
@@ -26,7 +26,7 @@ class SignUp extends Component {
     return (
       <div className="signup">
         <h3>Sign Up</h3>
-        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+        <form onSubmit={handleSubmit(this.handleFormSubmit)}>
           <fieldset>
             <label>Username:</label>
             <Field name="username" component="input" type="text" />
