@@ -44,7 +44,9 @@ export const login = (username, password, history) => {
     axios
       .post(`${ROOT_URL}/api/login`, { username, password })
       .then(signedIn => {
-        console.log(signedIn);
+        console.log('return: ', signedIn);
+        localStorage.setItem('myToken', signedIn.data.token);
+        console.log('local storage: ', localStorage);
         dispatch({
           type: USER_AUTHENTICATED
         });
