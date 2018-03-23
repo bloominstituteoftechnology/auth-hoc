@@ -8,15 +8,20 @@ class SignUp extends Component {
   // This component needs a `handleFormSubmit` function that takes in
   // username, password, comfirmPassword strings as input and
   // invokes the `register` action
-  handleFormSubmit = ({username, password, confirmPassword}) => {
-    register(this.props.username,this.props.password,this.props.confirmPassword);
-  }
+  handleFormSubmit = ({ username, password, confirmPassword }) => {
+    this.props.register(
+      username,
+      password,
+      confirmPassword,
+      this.props.history
+    );
+  };
 
   renderAlert = () => {
     if (!this.props.error) return null;
     return <h3>{this.props.error}</h3>;
   };
-
+  
   render() {
     const { handleSubmit } = this.props;
     return (
@@ -32,12 +37,14 @@ class SignUp extends Component {
             <Field name="password" component="input" type="password" />
           </fieldset>
           <fieldset>
-            <label> Username: </label>
+            <label> Confirm Password: </label>
             <Field name="confirmPassword" component="input" type="password" />
           </fieldset>
+          <button action="submit">SUBMIT!</button>
+          {this.renderAlert()}
         </form>
       </div>
-    )
+    );
   }
 }
 const mapStateToProps = state => {
@@ -51,5 +58,5 @@ SignUp = connect(mapStateToProps, { register })(SignUp);
 
 export default reduxForm({
   form: 'signup',
-  fields: ['username', 'password', 'confirmPassword']
+  fields: ['username', 'password', 'confirmPassword'],
 })(SignUp);
