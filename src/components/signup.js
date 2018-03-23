@@ -26,7 +26,7 @@ class SignUp extends Component {
 
     return (
       <div>
-        <div>Sign Up</div>;
+        <div>Sign Up</div>
         <form onSubmit={handleSubmit(this.handleFormSubmit)}>
           <fieldset>
             <label>Username:</label>
