@@ -43,7 +43,7 @@ export const login = (username, password, history) => {
     axios
       .post(`${ROOT_URL}/api/login`, { username, password })
       .then((res) => {
-        console.log(res.data.token);
+        console.log('login token line 46: ', res.data.token);
         dispatch({
           type: USER_AUTHENTICATED
         });
@@ -58,7 +58,7 @@ export const login = (username, password, history) => {
 
 export const logout = () => {
   localStorage.removeItem('token');
-  console.log('token: ', localStorage.getItem('token'));
+  console.log('Logout token line 61: ', localStorage.getItem('token'));
   return { type: USER_UNAUTHENTICATED };
   // return dispatch => {
   //   axios
@@ -76,7 +76,7 @@ export const logout = () => {
 
 export const getUsers = () => {
   const token = localStorage.getItem('token');
-  console.log('token: ', token);
+  console.log('Get Users token line 79: ', token);
   return dispatch => {
     axios
       .get(`${ROOT_URL}/api/users`, { headers: { authorization: token } })
