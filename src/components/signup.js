@@ -5,6 +5,9 @@ import { reduxForm, Field } from 'redux-form';
 import { register } from '../actions';
 
 class SignUp extends Component {
+  handleFormSubmit = (username, password, confirmPassword) => {
+    this.props.register(username, password, confirmPassword, this.props.history);
+  }//done
   // This component needs a `handleFormSubmit` function that takes in
   // username, password, comfirmPassword strings as input and
   // invokes the `register` action
@@ -18,7 +21,27 @@ class SignUp extends Component {
     // Use reduxForm to build the sign up form
     // Check the other components to see how reduxForm is used
     // There needs fields for Username, Password, and Confirm Password
-    return <div>Sign Up</div>;
+
+    const { handleSubmit } = this.props;
+    console.log(username);
+    return (
+    <form onSubmit = { handleSubmit(this.handleFormSubmit.bind(this)) }>
+      <div>
+        <label htmlFor="username">User Name</label>
+        <Field name="username" component="input" type="text" />
+      </div>
+      <div>
+        <label htmlFor="password">Password</label>
+        <Field name="password" component="input" type="password" />
+      </div>
+      <div>
+        <label htmlFor="confirmPassword">Confirm Password</label>
+        <Field name="confirmPassword" component="input" type="password" />
+      </div>
+      <button type="submit">Sign up</button>
+      { this.renderAlert() }
+    </form>
+    );
   }
 }
 
@@ -29,7 +52,7 @@ const mapStateToProps = state => {
 };
 
 // Make sure to correctly fill in this `connect` call
-SignUp = connect(null)(SignUp);
+SignUp = connect(mapStateToProps, { register })(SignUp);
 
 export default reduxForm({
   form: 'signup',
