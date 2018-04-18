@@ -26,7 +26,7 @@ class SignUp extends Component {
     // Use reduxForm to build the sign up form
     // Check the other components to see how reduxForm is used
     // There needs fields for Username, Password, and Confirm Password
-    const { handleFormSubmit } = this.props;
+    const { handleSubmit } = this.props;
     return (
       <div>
         <div>Sign Up</div>
@@ -41,7 +41,7 @@ class SignUp extends Component {
           </fieldset>
           <fieldset>
             <label>Confirm Password:</label>
-            <Field name="password" component />
+            <Field name="confirmPassword" component="input" type="password" />
           </fieldset>
           <button action="submit">Register</button>
           {this.renderAlert()}
