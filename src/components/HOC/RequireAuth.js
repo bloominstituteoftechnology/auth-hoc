@@ -6,11 +6,15 @@ export default ComposedComponent => {
         componentWillMount() {
             // Here, we want to check to see if `this.props.authenticated` is true
             // If it isn't, then redirect the user back to the /signin page
-            const { history } = this.props;
-            if (!this.props.authenticated) {
-                history.push("/signin");
-            }
+            // console.log(this.props.authenticated);
+            this.isNotAuth();
         }
+
+        isNotAuth = () => {
+            return !this.props.authenticated
+                ? this.props.history.push("/signin")
+                : null;
+        };
 
         render() {
             return (
