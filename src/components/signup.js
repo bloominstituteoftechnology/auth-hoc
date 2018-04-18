@@ -5,7 +5,7 @@ import { reduxForm, Field } from 'redux-form';
 import { register } from '../actions';
 
 class SignUp extends Component {
-  handleFormSubmit = (username, password, confirmPassword) => {
+  handleFormSubmit = ({username, password, confirmPassword}) => {
     this.props.register(username, password, confirmPassword, this.props.history);
   }//done
   // This component needs a `handleFormSubmit` function that takes in
@@ -23,23 +23,22 @@ class SignUp extends Component {
     // There needs fields for Username, Password, and Confirm Password
 
     const { handleSubmit } = this.props;
-    console.log(username);
     return (
-    <form onSubmit = { handleSubmit(this.handleFormSubmit.bind(this)) }>
-      <div>
-        <label htmlFor="username">User Name</label>
+      <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+      <fieldset>
+        <label>Username:</label>
         <Field name="username" component="input" type="text" />
-      </div>
-      <div>
-        <label htmlFor="password">Password</label>
+      </fieldset>
+      <fieldset>
+        <label>Password:</label>
         <Field name="password" component="input" type="password" />
-      </div>
-      <div>
-        <label htmlFor="confirmPassword">Confirm Password</label>
+      </fieldset>
+      <fieldset>
+        <label>Confirm Password:</label>
         <Field name="confirmPassword" component="input" type="password" />
-      </div>
-      <button type="submit">Sign up</button>
-      { this.renderAlert() }
+      </fieldset>
+      <button action="submit">Sign Up</button>
+      {this.renderAlert()}
     </form>
     );
   }

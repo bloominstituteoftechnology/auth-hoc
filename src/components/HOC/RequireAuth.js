@@ -12,14 +12,15 @@ export default ComposedComponent => {
     }
 
     render() {
-      return <div />;
-      // Here, check to see if `this.props.authenticated` is true
-      // If it isn't, then we don't want this component to return anything
-      // Else, render the component that was passed to this higher-order component
-      // if(this.props.authenticated) {
-
-      // }
-    }
+      if(this.props.authenticated) {
+        return ( 
+          // Here, check to see if `this.props.authenticated` is true
+          // If it isn't, then we don't want this component to return anything
+          // Else, render the component that was passed to this higher-order component
+          <ComposedComponent users={this.props.users}/>
+        )}
+        else {return null};
+      }
   }
 
   const mapStateToProps = state => {
