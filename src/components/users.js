@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { getUsers } from '../actions';
 
-class Users extends Component {
+class Users extends React.Component {
   componentDidMount() {
     this.props.getUsers();
   }
@@ -20,7 +20,7 @@ class Users extends Component {
 
 const mapStateToProps = state => {
   return {
-    users: state.users
+    users: state.users,
   };
 };
 

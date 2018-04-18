@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { login } from '../actions';
 import { connect } from 'react-redux';
 
-class SignIn extends Component {
+class SignIn extends React.Component {
   handleFormSubmit({ username, password }) {
     this.props.login(username, password, this.props.history);
   }
@@ -36,7 +36,7 @@ class SignIn extends Component {
 const mapStateToProps = state => {
   return {
     error: state.auth.error,
-    authenticated: state.auth.authenticated
+    authenticated: state.auth.authenticated,
   };
 };
 
@@ -44,5 +44,5 @@ SignIn = connect(mapStateToProps, { login })(SignIn);
 
 export default reduxForm({
   form: 'signin',
-  fields: ['username', 'password']
+  fields: ['username', 'password'],
 })(SignIn);

@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-class Header extends Component {
+class Header extends React.Component {
   getLinks() {
     if (this.props.authenticated) {
       return (
@@ -17,7 +17,7 @@ class Header extends Component {
       </li>,
       <li key={2}>
         <Link to="/signup">Sign Up</Link>
-      </li>
+      </li>,
     ];
   }
 
@@ -33,7 +33,7 @@ class Header extends Component {
 
 const mapStateToProps = state => {
   return {
-    authenticated: state.auth.authenticated
+    authenticated: state.auth.authenticated,
   };
 };
 
