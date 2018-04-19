@@ -78,6 +78,7 @@ export const getUsers = () => {
           type: GET_USERS,
           payload: response.data
         });
+        console.log(response.data);
       })
       .catch(() => {
         dispatch(authError('Failed to fetch users'));
