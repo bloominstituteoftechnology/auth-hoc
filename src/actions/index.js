@@ -1,15 +1,15 @@
-import axios from 'axios';
+import axios from "axios";
 // Fixes an issue with axios and express-session where sessions
 // would not persist between routes
 axios.defaults.withCredentials = true;
-const ROOT_URL = 'http://localhost:5000';
+const ROOT_URL = "http://localhost:5000/api";
 
-export const USER_REGISTERED = 'USER_REGISTERED';
-export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
-export const USER_UNAUTHENTICATED = 'USER_UNAUTHENTICATED';
-export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
-export const GET_USERS = 'GET_USERS';
-export const CHECK_IF_AUTHENTICATED = 'CHECK_IF_AUTHENTICATED';
+export const USER_REGISTERED = "USER_REGISTERED";
+export const USER_AUTHENTICATED = "USER_AUTHENTICATED";
+export const USER_UNAUTHENTICATED = "USER_UNAUTHENTICATED";
+export const AUTHENTICATION_ERROR = "AUTHENTICATION_ERROR";
+export const GET_USERS = "GET_USERS";
+export const CHECK_IF_AUTHENTICATED = "CHECK_IF_AUTHENTICATED";
 
 export const authError = error => {
   return {
@@ -21,7 +21,7 @@ export const authError = error => {
 export const register = (username, password, confirmPassword, history) => {
   return dispatch => {
     if (password !== confirmPassword) {
-      dispatch(authError('Passwords do not match'));
+      dispatch(authError("Passwords do not match"));
       return;
     }
     axios
@@ -30,10 +30,10 @@ export const register = (username, password, confirmPassword, history) => {
         dispatch({
           type: USER_REGISTERED
         });
-        history.push('/signin');
+        history.push("/signin");
       })
       .catch(() => {
-        dispatch(authError('Failed to register user'));
+        dispatch(authError("Failed to register user"));
       });
   };
 };
@@ -42,14 +42,15 @@ export const login = (username, password, history) => {
   return dispatch => {
     axios
       .post(`${ROOT_URL}/login`, { username, password })
-      .then(() => {
+      .then(response => {
         dispatch({
           type: USER_AUTHENTICATED
         });
-        history.push('/users');
+        localStorage.setItem("authorization", response.data.token);
+        history.push("/users");
       })
       .catch(() => {
-        dispatch(authError('Incorrect username/password combo'));
+        dispatch(authError("Incorrect username/password combo"));
       });
   };
 };
@@ -62,9 +63,10 @@ export const logout = () => {
         dispatch({
           type: USER_UNAUTHENTICATED
         });
+        localStorage.removeItem("authorization");
       })
       .catch(() => {
-        dispatch(authError('Failed to log you out'));
+        dispatch(authError("Failed to log you out"));
       });
   };
 };
@@ -72,7 +74,9 @@ export const logout = () => {
 export const getUsers = () => {
   return dispatch => {
     axios
-      .get(`${ROOT_URL}/restricted/users`)
+      .get(`${ROOT_URL}/users`, {
+        headers: { Authorization: localStorage.getItem("authorization") }
+      })
       .then(response => {
         dispatch({
           type: GET_USERS,
@@ -80,7 +84,7 @@ export const getUsers = () => {
         });
       })
       .catch(() => {
-        dispatch(authError('Failed to fetch users'));
+        dispatch(authError("Failed to fetch users"));
       });
   };
 };
