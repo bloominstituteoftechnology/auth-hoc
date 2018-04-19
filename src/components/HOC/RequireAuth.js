@@ -19,7 +19,9 @@ export default ComposedComponent => {
           // Else, render the component that was passed to this higher-order component
           <ComposedComponent users={this.props.users}/>
         )}
-        else {return null};
+        else {
+          return (null)
+        }
       }
   }
 
