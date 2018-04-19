@@ -40,11 +40,7 @@ class SignUp extends Component {
         </fieldset>
         <fieldset>
           <label>Confirm Password:</label>
-          <Field
-            name="confirmPassword"
-            component="input"
-            type="confirmPassword"
-          />
+          <Field name="confirmPassword" component="input" type="password" />
         </fieldset>
         <button action="submit">Sign In</button>
         {this.renderAlert()}
