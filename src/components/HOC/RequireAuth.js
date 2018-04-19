@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-export default ComposedComponent => {
+export default (ComposedComponent) => {
   class RequireAuthentication extends Component {
     componentWillMount() {
       // Here, we want to check to see if `this.props.authenticated` is true
       // If it isn't, then redirect the user back to the /signin page
+      if (this.props.authenticated) {
+      } else {
+      }
     }
 
     render() {
@@ -16,9 +19,9 @@ export default ComposedComponent => {
     }
   }
 
-  const mapStateToProps = state => {
+  const mapStateToProps = (state) => {
     return {
-      authenticated: state.auth.authenticated
+      authenticated: state.auth.authenticated,
     };
   };
 
