@@ -6,9 +6,12 @@ export default (ComposedComponent) => {
     componentWillMount() {
       // Here, we want to check to see if `this.props.authenticated` is true
       // If it isn't, then redirect the user back to the /signin page
-      if (this.props.authenticated) {
-      } else {
+      if (!this.props.authenticated) {
+        this.props.history.push('/signin');
       }
+      // if not signed in then pushed back to the sign in page or else it's logged in
+      // and you don't need to do anythin
+      // if logged in then you don't need to check
     }
 
     render() {
