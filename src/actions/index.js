@@ -2,7 +2,7 @@ import axios from 'axios';
 // Fixes an issue with axios and express-session where sessions
 // would not persist between routes
 axios.defaults.withCredentials = true;
-const ROOT_URL = 'http://localhost:3000';
+const ROOT_URL = 'http://localhost:5000';
 
 export const USER_REGISTERED = 'USER_REGISTERED';
 export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
@@ -14,7 +14,7 @@ export const CHECK_IF_AUTHENTICATED = 'CHECK_IF_AUTHENTICATED';
 export const authError = error => {
   return {
     type: AUTHENTICATION_ERROR,
-    payload: error
+    payload: error,
   };
 };
 
@@ -28,7 +28,7 @@ export const register = (username, password, confirmPassword, history) => {
       .post(`${ROOT_URL}/users`, { username, password })
       .then(() => {
         dispatch({
-          type: USER_REGISTERED
+          type: USER_REGISTERED,
         });
         history.push('/signin');
       })
@@ -44,7 +44,7 @@ export const login = (username, password, history) => {
       .post(`${ROOT_URL}/login`, { username, password })
       .then(() => {
         dispatch({
-          type: USER_AUTHENTICATED
+          type: USER_AUTHENTICATED,
         });
         history.push('/users');
       })
@@ -60,7 +60,7 @@ export const logout = () => {
       .post(`${ROOT_URL}/logout`)
       .then(() => {
         dispatch({
-          type: USER_UNAUTHENTICATED
+          type: USER_UNAUTHENTICATED,
         });
       })
       .catch(() => {
@@ -76,8 +76,9 @@ export const getUsers = () => {
       .then(response => {
         dispatch({
           type: GET_USERS,
-          payload: response.data
+          payload: response.data,
         });
+        console.log(response.data);
       })
       .catch(() => {
         dispatch(authError('Failed to fetch users'));
