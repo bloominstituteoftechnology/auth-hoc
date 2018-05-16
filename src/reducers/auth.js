@@ -8,9 +8,9 @@ import {
 export default (auth = {}, action) => {
   switch (action.type) {
     case USER_AUTHENTICATED:
-      return { ...auth, authenticated: true };
+      return { ...auth, authenticated: true, JWT: action.payload };
     case USER_UNAUTHENTICATED:
-      return { ...auth, authenticated: false };
+      return { ...auth, authenticated: false, JWT: null };
     case AUTHENTICATION_ERROR:
       return { ...auth, error: action.payload };
     case CHECK_IF_AUTHENTICATED:

@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import AuthReducer from './auth';
 import { reducer as FormReducer } from 'redux-form';
-import UsersReducer from './users';
+import JokesReducer from './jokes';
 
 const rootReducer = combineReducers({
   auth: AuthReducer,
   form: FormReducer,
-  users: UsersReducer,
+  jokes: JokesReducer,
 });
 
 export default rootReducer;
