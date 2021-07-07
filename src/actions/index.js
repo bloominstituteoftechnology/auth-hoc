@@ -2,7 +2,7 @@ import axios from 'axios';
 // Fixes an issue with axios and express-session where sessions
 // would not persist between routes
 axios.defaults.withCredentials = true;
-const ROOT_URL = 'http://localhost:3000';
+const ROOT_URL = 'http://localhost:5000';
 
 export const USER_REGISTERED = 'USER_REGISTERED';
 export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
@@ -25,8 +25,9 @@ export const register = (username, password, confirmPassword, history) => {
       return;
     }
     axios
-      .post(`${ROOT_URL}/users`, { username, password })
-      .then(() => {
+      .post(`${ROOT_URL}/api/users`, { username, password })
+      .then(res => {
+        localStorage.setItem('token', res.data.token);
         dispatch({
           type: USER_REGISTERED
         });
@@ -41,8 +42,9 @@ export const register = (username, password, confirmPassword, history) => {
 export const login = (username, password, history) => {
   return dispatch => {
     axios
-      .post(`${ROOT_URL}/login`, { username, password })
-      .then(() => {
+      .post(`${ROOT_URL}/api/login`, { username, password })
+      .then(res => {
+        localStorage.setItem('token', res.data.token);
         dispatch({
           type: USER_AUTHENTICATED
         });
@@ -59,6 +61,7 @@ export const logout = () => {
     axios
       .post(`${ROOT_URL}/logout`)
       .then(() => {
+        localStorage.removeItem('token');
         dispatch({
           type: USER_UNAUTHENTICATED
         });
@@ -70,9 +73,10 @@ export const logout = () => {
 };
 
 export const getUsers = () => {
+  const headers = { authorization: localStorage.getItem('token') }
   return dispatch => {
     axios
-      .get(`${ROOT_URL}/restricted/users`)
+      .get(`${ROOT_URL}/api/users`, { headers })
       .then(response => {
         dispatch({
           type: GET_USERS,
